@@ -1,6 +1,6 @@
 <div align="center">
   <h1>ZhiMo</h1>
-  <p>面向长文技术写作的纸面与墨色 Hexo 主题。</p>
+  <p>面向长文技术写作的纸墨风多语言 Hexo 主题。</p>
   <p>
     <a href="https://www.npmjs.com/package/hexo-theme-zhimo"><img alt="npm 版本" src="https://img.shields.io/npm/v/hexo-theme-zhimo?style=flat-square&color=c43a10&logo=npm&logoColor=white"></a>
     <a href="LICENSE"><img alt="MIT 许可" src="https://img.shields.io/badge/license-MIT-c43a10?style=flat-square"></a>

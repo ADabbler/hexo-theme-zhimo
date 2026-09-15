@@ -1,7 +1,7 @@
 {
   "name": "hexo-theme-zhimo",
   "version": "0.1.0",
-  "description": "A paper-and-ink editorial Hexo theme for personal publishing.",
+  "description": "A paper-and-ink, multilingual Hexo theme for long-form technical writing.",
   "author": "Dabbler <email@dabbler.top>",
   "license": "MIT",
   "type": "commonjs",

@@ -1,6 +1,6 @@
 <div align="center">
   <h1>ZhiMo</h1>
-  <p>A paper-and-ink Hexo theme for long-form technical writing.</p>
+  <p>A paper-and-ink, multilingual Hexo theme for long-form technical writing.</p>
   <p>
     <a href="https://www.npmjs.com/package/hexo-theme-zhimo"><img alt="npm version" src="https://img.shields.io/npm/v/hexo-theme-zhimo?style=flat-square&color=c43a10&logo=npm&logoColor=white"></a>
     <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-c43a10?style=flat-square"></a>

@@ -1,0 +1,43 @@
+@media print {
+  .site-header,
+  .site-footer,
+  .post-toc,
+  .mobile-toc,
+  .post-nav,
+  .pagination,
+  .related-posts,
+  .back-to-top,
+  .search-trigger,
+  .theme-toggle,
+  .lang-switch,
+  .copy-code-btn,
+  .code-lang {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .site-main,
+  .post-page,
+  .post-header,
+  .post-content,
+  .page-body {
+    width: auto;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+}

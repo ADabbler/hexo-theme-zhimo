@@ -1,0 +1,68 @@
+<%
+const socialLinks = theme.social || {};
+const currentLang = page_lang(page);
+const profileTitle = page.profile_title || config.author || page.title;
+const profileNote = page.profile_note || site_copy('subtitle') || config.description || '';
+const profileInitial = Array.from(String(profileTitle || config.title || '?').trim())[0] || '?';
+
+const contactItems = Object.entries(socialLinks)
+  .filter(([, href]) => String(href || '').trim())
+  .map(([name, href]) => {
+    const isRss = String(name).toLowerCase() === 'rss';
+    const linkUrl = normalize_link_url(isRss ? feed_path(currentLang) : href);
+    return {
+      name,
+      href: linkUrl,
+      external: is_external_url(linkUrl)
+    };
+  })
+  .filter(item => item.href);
+
+function avatarUrlFor(value) {
+  const avatarValue = String(value || '').trim();
+  if (!avatarValue) return '';
+  if (/^(?:https?:|data:|\/\/)/i.test(avatarValue)) return avatarValue;
+  return url_for(avatarValue);
+}
+
+const avatarUrl = avatarUrlFor(page.avatar);
+
+const aboutContent = about_section_grid(page.content);
+%>
+
+<div class="page-content page-content-about">
+  <article class="page-article about-article reveal-item">
+    <aside class="about-profile-card">
+      <div class="about-avatar" aria-hidden="true">
+        <% if (avatarUrl) { %>
+        <img src="<%= avatarUrl %>" alt="" loading="lazy">
+        <% } else { %>
+        <span><%= profileInitial %></span>
+        <% } %>
+      </div>
+
+      <div class="about-profile-copy">
+        <p class="section-kicker"><%= page.title %></p>
+        <h1 class="page-title"><%= profileTitle %></h1>
+        <% if (profileNote) { %>
+        <p class="about-profile-note"><%= profileNote %></p>
+        <% } %>
+      </div>
+
+      <% if (contactItems.length > 0) { %>
+      <nav class="about-profile-links" aria-label="<%= page.title %>">
+        <% contactItems.forEach(item => { %>
+        <a href="<%= item.href %>"<% if (item.external) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+          <span><%= item.name %></span>
+          <span aria-hidden="true">/</span>
+        </a>
+        <% }); %>
+      </nav>
+      <% } %>
+    </aside>
+
+    <div class="page-body about-content">
+      <%- aboutContent %>
+    </div>
+  </article>
+</div>

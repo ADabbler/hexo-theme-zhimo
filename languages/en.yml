@@ -1,0 +1,121 @@
+# English
+
+menu:
+  home: Home
+  archives: Articles
+  friends: Friends
+  about: About
+
+home:
+  featured: Featured
+  latest: Latest
+  all_articles: All articles
+  latest_issue: Latest issue
+  curated: Curated
+  posts_count: Articles
+  last_update: Last update
+  language: Language
+
+search:
+  button: Search
+  placeholder: Search articles…
+  no_results: No articles found
+  results_count: Found {count} articles
+  show_all: Show all results
+  show_less: Show fewer results
+  fallback_hint: You can also browse archives, categories, or tags
+  load_error: Failed to load search index
+
+post:
+  reading_time: "%d min read"
+  updated: Updated
+  related: Related
+  prev: Previous
+  next: Next
+  toc: Contents
+  copy_code: Copy
+  copied: Copied
+  copy_failed: Copy failed
+  expand_toc: Expand section
+  collapse_toc: Collapse section
+
+archive:
+  title: Articles
+  description: Browse %s articles by time.
+  year_description: Browse %s articles published in %d.
+  month_description: Browse %s articles published in %d-%s.
+  day_description: Browse %s articles published on %d-%s-%s.
+  total: Total %d articles
+  year: "%d"
+  month_heading: "%d-%s"
+  day_heading: "%d-%s-%s"
+  taxonomy: Topic index
+  popular_tags: Popular tags
+  all_tags: All tags
+  more_tags: View all
+  more_tags_aria: "%d more tags, go to the all tags page"
+  no_categories: No categories yet
+  no_tags: No tags yet
+
+listing:
+  empty_title: No posts in this language
+  empty_description: No articles are available in this language yet.
+  empty_other_language: View in %s
+  empty_browse: Browse all posts
+
+pagination:
+  nav_label: "Pagination, page %d of %d"
+  page: Page %d
+  previous: Previous page
+  next: Next page
+
+category:
+  title: Category
+  description: Browse %s articles in the "%s" category.
+
+tag:
+  title: Tag
+  description: Browse %s articles tagged "%s".
+  index_kicker: Tags
+  index_title: All tags
+  index_description: Tags are sorted by related article count for browsing articles by topic.
+  total: Total %d tags
+  post_count: "%d posts"
+  empty_title: No tags yet
+  empty_description: No tags are available yet.
+
+friends:
+  title: Friends
+  kicker: Links
+  empty_title: No links yet
+  empty_description: No public links are listed yet.
+  apply_kicker: Link exchange
+  apply_title: Link exchange
+  contact: Contact
+
+notfound:
+  title: Page Not Found
+  message: The page you are looking for does not exist
+  home: Back to Home
+  archives: Browse Articles
+  search: Search
+
+accessibility:
+  skip_to_content: Skip to content
+  primary_nav: Primary navigation
+  social_links: Social links
+  toggle_theme: Toggle theme mode
+  back_to_top: Back to top
+  close_search: Close search
+  open_menu: Open menu
+  close_menu: Close menu
+
+theme:
+  light: Paper
+  dark: Ink
+  auto: Auto
+  auto_short: Auto
+
+language:
+  switch: Switch language
+  list_start: "%s · first page"

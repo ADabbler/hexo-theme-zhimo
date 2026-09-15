@@ -1,0 +1,54 @@
+/**
+ * ZhiMo Theme — main stylesheet
+ * Paper-and-ink editorial palette.
+ *
+ * Source of truth for the layered cascade. Assembled by
+ * `tools/build.mjs` (esbuild) into `source/css/main.css`.
+ * Layer order is declared once in the `@layer` statement below and never
+ * changes afterwards; equal-specificity rules resolve within that fixed order.
+ */
+@layer tokens,
+  reset,
+  typography,
+  layout-shell,
+  header,
+  footer,
+  home,
+  post,
+  archive-taxonomy,
+  pagination,
+  page-content,
+  friends,
+  search,
+  not-found,
+  utilities,
+  responsive,
+  print;
+
+/* Base & component layers. */
+@import "./tokens.css" layer(tokens);
+@import "./reset.css" layer(reset);
+@import "./typography.css" layer(typography);
+@import "./layout-shell.css" layer(layout-shell);
+@import "./header.css" layer(header);
+@import "./footer.css" layer(footer);
+@import "./home.css" layer(home);
+@import "./post.css" layer(post);
+@import "./archive-taxonomy.css" layer(archive-taxonomy);
+@import "./pagination.css" layer(pagination);
+@import "./page-content.css" layer(page-content);
+@import "./friends.css" layer(friends);
+@import "./search.css" layer(search);
+@import "./not-found.css" layer(not-found);
+@import "./utilities.css" layer(utilities);
+
+/* Responsive breakpoints — same `responsive` layer; largest max-width first,
+   so narrower breakpoints win where selectors overlap. */
+@import "./responsive/max-1280.css" layer(responsive);
+@import "./responsive/max-980.css" layer(responsive);
+@import "./responsive/max-760.css" layer(responsive);
+@import "./responsive/max-480.css" layer(responsive);
+@import "./responsive/max-360.css" layer(responsive);
+
+/* Print stays the final cascade slot. */
+@import "./print.css" layer(print);

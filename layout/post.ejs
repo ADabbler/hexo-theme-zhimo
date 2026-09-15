@@ -1,0 +1,106 @@
+<%
+const tocConfig = theme.toc || {};
+const tocEnabled = tocConfig.enable && page.toc !== false;
+const tocHtml = tocEnabled ? toc(page.content, {
+  min_depth: tocConfig.min_depth || 2,
+  max_depth: tocConfig.max_depth || 3,
+  max_items: tocConfig.max_items || 30,
+  list_number: tocConfig.list_number !== false
+}) : '';
+const hasToc = tocHtml.length > 0;
+const neighbors = post_neighbors(page);
+const category = first_category(page);
+const currentLang = page_lang(page);
+const publishedIso = page.date.toISOString();
+const updatedIso = page.updated ? page.updated.toISOString() : '';
+const showUpdated = updatedIso && updatedIso !== publishedIso;
+const readingTime = __('post.reading_time', reading_time(page.content));
+const related = related_posts(page);
+%>
+
+<article class="post-page">
+  <header class="post-header reveal-item">
+    <div class="post-kicker">
+      <time datetime="<%= publishedIso %>"><%= date(page.date, 'YYYY-MM-DD') %></time>
+      <% if (category) { %>
+      <span class="meta-divider">/</span>
+      <a href="<%= url_for(localized_path(category.path, currentLang)) %>" class="category"><%= category.name %></a>
+      <% } %>
+      <span class="meta-divider">/</span>
+      <span class="reading-time"><%= readingTime %></span>
+      <% if (showUpdated) { %>
+      <span class="meta-divider">/</span>
+      <span class="updated"><%= __('post.updated') %> <%= date(page.updated, 'YYYY-MM-DD') %></span>
+      <% } %>
+    </div>
+
+    <h1 class="post-title"><%= page.title %></h1>
+
+    <% if (page.description) { %>
+    <p class="post-description"><%= page.description %></p>
+    <% } %>
+  </header>
+
+  <div class="post-body-grid<%= hasToc ? ' has-toc' : '' %>">
+    <% if (hasToc) { %>
+    <nav class="post-toc reveal-item" aria-labelledby="post-toc-title" data-toc>
+      <h2 class="toc-title" id="post-toc-title"><%= __('post.toc') %></h2>
+      <div class="toc-list">
+        <%- tocHtml %>
+      </div>
+    </nav>
+    <% } %>
+
+    <div class="post-content reveal-item">
+      <%- page.content %>
+    </div>
+  </div>
+
+  <% if (page.tags && page.tags.length > 0) { %>
+  <footer class="post-tags reveal-item">
+    <span class="post-tags-label"><%= __('tag.title') %></span>
+    <% page.tags.each(tag => { %>
+    <a href="<%= url_for(localized_path(tag.path, currentLang)) %>" class="tag">#<%= tag.name %></a>
+    <% }); %>
+  </footer>
+  <% } %>
+</article>
+
+<% if (related.length > 0) { %>
+<aside class="related-posts reveal-item">
+  <div class="section-heading compact">
+    <h2 class="section-title"><%= __('post.related') %></h2>
+  </div>
+  <ul class="related-list">
+    <% related.forEach(post => { %>
+    <li class="related-item">
+      <a class="related-card" href="<%= url_for(post.path) %>">
+        <h3 class="related-title">
+          <%= post.title %>
+        </h3>
+        <div class="related-meta">
+          <time datetime="<%= post.date.toISOString() %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+        </div>
+      </a>
+    </li>
+    <% }); %>
+  </ul>
+</aside>
+<% } %>
+
+<% if (neighbors.prev || neighbors.next) { %>
+<nav class="post-nav reveal-item">
+  <% if (neighbors.prev) { %>
+  <a href="<%= url_for(neighbors.prev.path) %>" class="post-nav-item prev">
+    <span class="nav-label"><%= __('post.prev') %></span>
+    <span class="nav-title"><%= neighbors.prev.title %></span>
+  </a>
+  <% } %>
+  <% if (neighbors.next) { %>
+  <a href="<%= url_for(neighbors.next.path) %>" class="post-nav-item next">
+    <span class="nav-label"><%= __('post.next') %></span>
+    <span class="nav-title"><%= neighbors.next.title %></span>
+  </a>
+  <% } %>
+</nav>
+<% } %>

@@ -1,0 +1,33 @@
+<% if (page.total > 1) { %>
+<nav class="pagination" aria-label="<%= __('pagination.nav_label', page.current, page.total) %>">
+  <div class="pagination-controls">
+    <% if (page.prev) { %>
+    <a class="pagination-edge pagination-prev" href="<%= url_for(page.prev_link) %>" rel="prev" aria-label="<%= __('pagination.previous') %>" title="<%= __('pagination.previous') %>">
+      <svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg> <span class="pagination-edge-label"><%= __('pagination.previous') %></span>
+    </a>
+    <% } else { %>
+    <span class="pagination-edge pagination-prev" aria-hidden="true"></span>
+    <% } %>
+    <ul class="pagination-pages">
+      <% pagination_pages(page).forEach(item => { %>
+      <% if (item.gap) { %>
+      <li class="pagination-gap" aria-hidden="true">…</li>
+      <% } else if (item.current) { %>
+      <li><span class="pagination-page" aria-current="page"><%= item.number %></span></li>
+      <% } else { %>
+      <li>
+        <a class="pagination-page" href="<%= url_for(item.path) %>" aria-label="<%= __('pagination.page', item.number) %>"><%= item.number %></a>
+      </li>
+      <% } %>
+      <% }); %>
+    </ul>
+    <% if (page.next) { %>
+    <a class="pagination-edge pagination-next" href="<%= url_for(page.next_link) %>" rel="next" aria-label="<%= __('pagination.next') %>" title="<%= __('pagination.next') %>">
+      <span class="pagination-edge-label"><%= __('pagination.next') %></span> <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+    </a>
+    <% } else { %>
+    <span class="pagination-edge pagination-next" aria-hidden="true"></span>
+    <% } %>
+  </div>
+</nav>
+<% } %>

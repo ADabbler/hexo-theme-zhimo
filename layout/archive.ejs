@@ -1,0 +1,144 @@
+<%
+const currentLang = page_lang(page);
+const currentArchiveYear = Number(page.year) || 0;
+const currentArchiveMonth = Number(page.month) || 0;
+const isArchiveDatePage = Boolean(currentArchiveYear || currentArchiveMonth);
+const posts = page.posts.toArray();
+const chronological = page.archive_chronological;
+const taxonomyConfig = theme.taxonomy || {};
+const configuredArchiveTagLimit = Number(taxonomyConfig.archive_tag_limit);
+let archiveTagLimit = 16;
+if (Number.isFinite(configuredArchiveTagLimit) && configuredArchiveTagLimit > 0) {
+  archiveTagLimit = Math.floor(configuredArchiveTagLimit);
+}
+
+const categoryTerms = page.taxonomies.categories;
+const tagTerms = page.taxonomies.tags;
+const visibleTags = tagTerms.slice(0, archiveTagLimit);
+const hiddenTagCount = Math.max(0, tagTerms.length - visibleTags.length);
+const tagsPath = tag_index_path(currentLang);
+const hasCategories = categoryTerms.length > 0;
+const hasTags = tagTerms.length > 0;
+const yearGroups = [];
+
+posts.forEach(post => {
+  const year = chronological ? Number(date(post.date, 'YYYY')) : null;
+  let yearGroup = yearGroups[yearGroups.length - 1];
+
+  if (!yearGroup || yearGroup.year !== year) {
+    yearGroup = { year, posts: [] };
+    yearGroups.push(yearGroup);
+  }
+
+  yearGroup.posts.push({
+    post,
+    category: first_category(post),
+    summary: post_list_summary(post)
+  });
+});
+
+const archiveTitle = archive_page_title();
+%>
+<div class="archive-page<%= isArchiveDatePage ? ' archive-page-filtered' : '' %>">
+  <header class="page-header archive-header reveal-item">
+    <p class="section-kicker"><%= __('archive.title') %></p>
+    <h1 class="page-title"><%= archiveTitle %></h1>
+    <p class="archive-total"><%= __('archive.total', page.total_posts) %></p>
+  </header>
+
+  <% if (!isArchiveDatePage) { %>
+  <section class="archive-taxonomy reveal-item" aria-labelledby="archive-taxonomy-title">
+    <div class="section-heading compact">
+      <h2 class="section-title" id="archive-taxonomy-title"><%= __('archive.taxonomy') %></h2>
+    </div>
+
+    <div class="taxonomy-panels">
+      <section class="taxonomy-panel">
+        <div class="taxonomy-panel-header">
+          <h3><%= __('category.title') %></h3>
+        </div>
+        <div class="taxonomy-links">
+          <% if (hasCategories) { %>
+          <% categoryTerms.forEach(term => { %>
+          <a href="<%= url_for(localized_path(term.path, currentLang)) %>" class="taxonomy-link">
+            <span><%= term.name %></span>
+            <span>(<%= term.count %>)</span>
+          </a>
+          <% }); %>
+          <% } else { %>
+          <span class="taxonomy-empty"><%= __('archive.no_categories') %></span>
+          <% } %>
+        </div>
+      </section>
+
+      <section class="taxonomy-panel">
+        <div class="taxonomy-panel-header">
+          <h3><%= __('archive.popular_tags') %></h3>
+          <% if (hasTags && tagsPath) { %>
+          <a href="<%= url_for(tagsPath) %>"><%= __('archive.all_tags') %></a>
+          <% } %>
+        </div>
+        <div class="taxonomy-links">
+          <% if (hasTags) { %>
+          <% visibleTags.forEach(term => { %>
+          <a href="<%= url_for(localized_path(term.path, currentLang)) %>" class="taxonomy-link">
+            <span>#<%= term.name %></span>
+            <span>(<%= term.count %>)</span>
+          </a>
+          <% }); %>
+          <% if (hiddenTagCount > 0 && tagsPath) { %>
+          <a
+            href="<%= url_for(tagsPath) %>"
+            class="taxonomy-link taxonomy-more"
+            aria-label="<%= __('archive.more_tags_aria', hiddenTagCount) %>">
+            <span><%= __('archive.more_tags') %></span>
+            <span>+<%= hiddenTagCount %></span>
+          </a>
+          <% } %>
+          <% } else { %>
+          <span class="taxonomy-empty"><%= __('archive.no_tags') %></span>
+          <% } %>
+        </div>
+      </section>
+    </div>
+  </section>
+  <% } %>
+
+  <% if (posts.length === 0) { %>
+  <%- partial('_partial/listing-empty') %>
+  <% } else { %>
+  <div class="archive-timeline<%= isArchiveDatePage || !chronological ? ' archive-timeline-filtered' : '' %><%= !chronological ? ' archive-timeline-unsorted' : '' %>">
+    <% yearGroups.forEach(group => { %>
+    <section class="year-group reveal-item">
+      <% if (group.year !== null) { %>
+      <h2 class="year-title<%= isArchiveDatePage ? ' visually-hidden' : '' %>"><%= __('archive.year', group.year) %></h2>
+      <% } %>
+      <div class="year-posts">
+        <% group.posts.forEach(({ post, category, summary }) => { %>
+        <article class="archive-item reveal-item">
+          <span class="archive-marker" aria-hidden="true">+</span>
+          <time class="archive-date" datetime="<%= post.date.toISOString() %>"><%= date(post.date, chronological ? 'MM-DD' : 'YYYY-MM-DD') %></time>
+          <div class="archive-main">
+            <h3 class="archive-title">
+              <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+            </h3>
+            <% if (summary) { %>
+            <p class="archive-excerpt"><%= summary %></p>
+            <% } %>
+            <div class="archive-meta">
+              <% if (category) { %>
+              <a href="<%= url_for(localized_path(category.path, currentLang)) %>" class="archive-category"><%= category.name %></a>
+              <span class="meta-divider" aria-hidden="true">/</span>
+              <% } %>
+              <span><%= __('post.reading_time', reading_time(post.content)) %></span>
+            </div>
+          </div>
+        </article>
+        <% }); %>
+      </div>
+    </section>
+    <% }); %>
+  </div>
+  <% } %>
+  <%- partial('_partial/pagination') %>
+</div>

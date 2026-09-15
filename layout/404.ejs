@@ -1,0 +1,37 @@
+<%
+const currentLang = page_lang(page);
+const homeHref = url_for(home_path(currentLang));
+const archivesPath = archive_path(currentLang);
+const searchEnabled = theme.search && theme.search.enable;
+%>
+
+<div class="notfound-page">
+  <section class="notfound-panel reveal-item" aria-labelledby="notfound-title">
+    <div class="notfound-code" aria-hidden="true">404</div>
+
+    <div class="notfound-copy">
+      <p class="section-kicker">404</p>
+      <h1 id="notfound-title" class="page-title"><%= page.title || __('notfound.title') %></h1>
+      <p><%= page.description || __('notfound.message') %></p>
+
+      <div class="notfound-actions">
+        <a class="text-button" href="<%= homeHref %>">
+          <span><%= __('notfound.home') %></span>
+          <span class="button-mark" aria-hidden="true">/</span>
+        </a>
+        <% if (archivesPath) { %>
+        <a class="text-button secondary" href="<%= url_for(archivesPath) %>">
+          <span><%= __('notfound.archives') %></span>
+          <span class="button-mark" aria-hidden="true">/</span>
+        </a>
+        <% } %>
+        <% if (searchEnabled) { %>
+        <button class="text-button secondary" type="button" data-search-trigger>
+          <span><%= __('notfound.search') %></span>
+          <span class="button-mark" aria-hidden="true">/</span>
+        </button>
+        <% } %>
+      </div>
+    </div>
+  </section>
+</div>

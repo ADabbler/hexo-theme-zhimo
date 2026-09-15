@@ -1,0 +1,121 @@
+# 中文(默认)
+
+menu:
+  home: 首页
+  archives: 文章
+  friends: 友链
+  about: 关于
+
+home:
+  featured: 精选文章
+  latest: 最新文章
+  all_articles: 全部文章
+  latest_issue: 最新一期
+  curated: 策展
+  posts_count: 文章
+  last_update: 最近更新
+  language: 语言
+
+search:
+  button: 搜索
+  placeholder: 搜索文章…
+  no_results: 未找到相关文章
+  results_count: 找到 {count} 篇相关文章
+  show_all: 显示全部结果
+  show_less: 收起结果
+  fallback_hint: 也可以浏览归档、分类或标签
+  load_error: 搜索索引加载失败
+
+post:
+  reading_time: "预计阅读 %d 分钟"
+  updated: 更新于
+  related: 相关文章
+  prev: 上一篇
+  next: 下一篇
+  toc: 目录
+  copy_code: 复制
+  copied: 已复制
+  copy_failed: 复制失败
+  expand_toc: 展开小节
+  collapse_toc: 收起小节
+
+archive:
+  title: 文章
+  description: 按时间浏览 %s 的文章列表。
+  year_description: 浏览 %s 在 %d 年发布的文章。
+  month_description: 浏览 %s 在 %d 年 %d 月发布的文章。
+  day_description: 浏览 %s 在 %d 年 %d 月 %d 日发布的文章。
+  total: 共 %d 篇
+  year: "%d 年"
+  month_heading: "%d 年 %d 月"
+  day_heading: "%d 年 %d 月 %d 日"
+  taxonomy: 主题索引
+  popular_tags: 常用标签
+  all_tags: 全部标签
+  more_tags: 查看全部
+  more_tags_aria: 还有 %d 个标签，前往全部标签页
+  no_categories: 暂无分类
+  no_tags: 暂无标签
+
+listing:
+  empty_title: 当前语言下暂无文章
+  empty_description: 当前语言下还没有可浏览的文章。
+  empty_other_language: 查看 %s 版
+  empty_browse: 浏览全部文章
+
+pagination:
+  nav_label: "分页导航，第 %d 页，共 %d 页"
+  page: 第 %d 页
+  previous: 上一页
+  next: 下一页
+
+category:
+  title: 分类
+  description: 浏览 %s 中「%s」分类下的文章。
+
+tag:
+  title: 标签
+  description: 浏览 %s 中带有「%s」标签的文章。
+  index_kicker: 标签
+  index_title: 全部标签
+  index_description: 所有标签按关联文章数量排序，方便按主题浏览文章。
+  total: 共 %d 个标签
+  post_count: "%d 篇"
+  empty_title: 暂无标签
+  empty_description: 暂无可浏览的标签。
+
+friends:
+  title: 友链
+  kicker: 友链
+  empty_title: 暂无友链
+  empty_description: 这里暂时还没有公开展示的站点。
+  apply_kicker: 友链交换
+  apply_title: 交换说明
+  contact: 联系
+
+notfound:
+  title: 页面未找到
+  message: 您访问的页面不存在
+  home: 返回首页
+  archives: 浏览文章
+  search: 搜索
+
+accessibility:
+  skip_to_content: 跳转到正文
+  primary_nav: 主导航
+  social_links: 社交链接
+  toggle_theme: 切换主题模式
+  back_to_top: 返回顶部
+  close_search: 关闭搜索
+  open_menu: 打开菜单
+  close_menu: 关闭菜单
+
+theme:
+  light: 纸页
+  dark: 墨夜
+  auto: 跟随系统
+  auto_short: 系统
+
+language:
+  switch: 切换语言
+  list_start: "%s · 从第一页开始"

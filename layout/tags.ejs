@@ -1,0 +1,45 @@
+<%
+const currentLang = page_lang(page);
+const tagTerms = page.terms;
+const minWeight = 1;
+const balancedWeight = 3;
+const maxWeight = 5;
+const maxTagCount = tagTerms.reduce((max, term) => Math.max(max, term.count), 0);
+const minTagCount = tagTerms.reduce((min, term) => Math.min(min, term.count), maxTagCount);
+
+function tagWeight(term) {
+  if (!maxTagCount) return minWeight;
+  if (maxTagCount === minTagCount) return balancedWeight;
+
+  const countRatio = (term.count - minTagCount) / (maxTagCount - minTagCount);
+  return Math.round(countRatio * (maxWeight - minWeight)) + minWeight;
+}
+%>
+
+<div class="tag-index-page">
+  <header class="page-header tag-index-header reveal-item">
+    <p class="section-kicker"><%= __('tag.index_kicker') %></p>
+    <h1 class="page-title"><%= __('tag.index_title') %></h1>
+    <p class="tag-index-description"><%= __('tag.index_description') %></p>
+    <p class="tag-total"><%= __('tag.total', tagTerms.length) %></p>
+  </header>
+
+  <% if (tagTerms.length > 0) { %>
+  <nav class="tag-index-grid reveal-item" aria-label="<%= __('tag.index_title') %>">
+    <% tagTerms.forEach(term => { %>
+    <a
+      href="<%= url_for(localized_path(term.path, currentLang)) %>"
+      class="tag-index-card weight-<%= tagWeight(term) %>"
+      aria-label="<%= term.name %>, <%= __('tag.post_count', term.count) %>">
+      <span class="tag-index-name">#<%= term.name %></span>
+      <span class="tag-index-count"><%= __('tag.post_count', term.count) %></span>
+    </a>
+    <% }); %>
+  </nav>
+  <% } else { %>
+  <section class="tag-index-empty reveal-item">
+    <h2><%= __('tag.empty_title') %></h2>
+    <p><%= __('tag.empty_description') %></p>
+  </section>
+  <% } %>
+</div>

@@ -1,0 +1,171 @@
+<%
+const currentLang = page_lang(page);
+const allPosts = page.posts.toArray();
+const featuredLimit = theme.featured_count || 3;
+const latestLimit = theme.latest_count || 5;
+const homeConfig = theme.home || {};
+const coverKicker = localized_value(homeConfig.cover_kicker, currentLang);
+const siteSubtitle = site_copy('subtitle', config.subtitle);
+const languageLabels = configured_languages().map(lang => language_short_label(lang)).join(' / ');
+const archivesPath = archive_path(currentLang);
+
+function toHomePostItem(post) {
+  return {
+    post,
+    category: first_category(post),
+    summary: post_list_summary(post),
+    readingTime: __('post.reading_time', reading_time(post.content))
+  };
+}
+
+const latestPosts = allPosts.slice(0, latestLimit);
+const latestPostPaths = new Set(latestPosts.map(post => post.path));
+const featuredPostItems = allPosts
+  .filter(post => post.featured && !latestPostPaths.has(post.path))
+  .slice(0, featuredLimit)
+  .map(toHomePostItem);
+const latestPostItems = latestPosts.map(toHomePostItem);
+const latestPostItem = latestPostItems[0];
+const latestPost = latestPostItem ? latestPostItem.post : null;
+%>
+
+<div class="home-page">
+  <div class="home-cover-frame">
+    <section class="home-cover reveal-item">
+      <div class="home-cover-copy">
+        <p class="cover-kicker"><%= coverKicker %></p>
+        <h1 class="cover-title"><%= config.title %></h1>
+        <% if (siteSubtitle) { %>
+        <p class="cover-subtitle"><%= siteSubtitle %></p>
+        <% } %>
+        <div class="cover-actions">
+          <% if (archivesPath) { %>
+          <a href="<%= url_for(archivesPath) %>" class="text-button">
+            <span><%= __('home.all_articles') %></span>
+            <span class="button-mark" aria-hidden="true">+</span>
+          </a>
+          <% } %>
+          <% if (theme.search && theme.search.enable) { %>
+          <button type="button" class="text-button secondary cover-search-action" data-search-trigger>
+            <span><%= __('search.button') %></span>
+            <span class="button-mark" aria-hidden="true">
+              <svg class="icon"><use href="#icon-search"></use></svg>
+            </span>
+          </button>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="cover-ledger" aria-label="<%= coverKicker %>">
+        <div class="ledger-feature">
+          <span class="ledger-label"><%= __('home.latest') %></span>
+          <% if (latestPost) { %>
+          <a class="ledger-title" href="<%= url_for(latestPost.path) %>"><%= latestPost.title %></a>
+          <span class="ledger-note">
+            <time datetime="<%= latestPost.date.toISOString() %>"><%= date(latestPost.date, 'YYYY-MM-DD') %></time>
+            <span aria-hidden="true">/</span>
+            <%= latestPostItem.readingTime %>
+          </span>
+          <% } else { %>
+          <span class="ledger-title">-</span>
+          <% } %>
+        </div>
+        <dl class="ledger-stats">
+          <div>
+            <dt><%= __('home.posts_count') %></dt>
+            <dd><%= allPosts.length %></dd>
+          </div>
+          <div>
+            <dt><%= __('home.last_update') %></dt>
+            <dd><%= latestPost ? date(latestPost.date, 'YYYY-MM-DD') : '-' %></dd>
+          </div>
+          <div>
+            <dt><%= __('home.language') %></dt>
+            <dd><%= languageLabels %></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <a class="cover-scroll" href="#home-latest" aria-label="<%= __('home.latest') %>">
+      <span class="cover-scroll-orb" aria-hidden="true">
+        <span class="cover-scroll-chevron"></span>
+      </span>
+    </a>
+  </div>
+
+  <section class="home-section latest-section reveal-item" id="home-latest">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker"><%= __('home.latest_issue') %></p>
+        <h2 class="section-title"><%= __('home.latest') %></h2>
+      </div>
+      <% if (archivesPath) { %>
+      <a class="section-action" href="<%= url_for(archivesPath) %>"><%= __('home.all_articles') %></a>
+      <% } %>
+    </div>
+
+    <% if (latestPostItems.length === 0) { %>
+    <%- partial('_partial/listing-empty') %>
+    <% } else { %>
+    <div class="issue-list">
+      <% latestPostItems.forEach(({ post, category, summary, readingTime }, index) => { %>
+      <article class="issue-item reveal-item" style="--reveal-index: <%= index %>">
+        <div class="issue-meta">
+          <span class="issue-number"><%= String(index + 1).padStart(2, '0') %></span>
+          <time datetime="<%= post.date.toISOString() %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+          <% if (category) { %>
+          <a href="<%= url_for(localized_path(category.path, currentLang)) %>" class="category"><%= category.name %></a>
+          <% } %>
+        </div>
+        <div class="issue-main">
+          <h3 class="post-title">
+            <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+          </h3>
+          <% if (summary) { %>
+          <p class="post-excerpt"><%= summary %></p>
+          <% } %>
+        </div>
+        <div class="issue-reading">
+          <span><%= readingTime %></span>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+    <% } %>
+  </section>
+
+  <% if (featuredPostItems.length > 0) { %>
+  <section class="home-grid reveal-item">
+    <div class="featured-section">
+      <div class="section-heading compact">
+        <div>
+          <p class="section-kicker"><%= __('home.curated') %></p>
+          <h2 class="section-title"><%= __('home.featured') %></h2>
+        </div>
+      </div>
+
+      <div class="featured-grid">
+        <% featuredPostItems.forEach(({ post, category, summary, readingTime }, index) => { %>
+        <article class="post-card reveal-item" style="--reveal-index: <%= index %>">
+          <div class="card-topline">
+            <time datetime="<%= post.date.toISOString() %>"><%= date(post.date, 'MM-DD') %></time>
+            <% if (category) { %>
+            <a href="<%= url_for(localized_path(category.path, currentLang)) %>" class="category"><%= category.name %></a>
+            <% } %>
+          </div>
+          <h3 class="post-title">
+            <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+          </h3>
+          <% if (summary) { %>
+          <p class="post-excerpt"><%= summary %></p>
+          <% } %>
+          <span class="reading-time"><%= readingTime %></span>
+        </article>
+        <% }); %>
+      </div>
+    </div>
+
+  </section>
+  <% } %>
+</div>

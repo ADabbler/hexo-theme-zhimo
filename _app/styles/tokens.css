@@ -1,0 +1,139 @@
+:root {
+  color-scheme: light;
+
+  --color-bg: #fefdfb;
+  --color-bg-soft: #f8f4ed;
+  --color-bg-elevated: #fffdf8;
+  --color-surface: #eee8de;
+  --color-surface-strong: #e5dccf;
+  --color-ruling: rgba(123, 96, 65, 0.04);
+  --color-wash-warm: rgba(196, 58, 16, 0.05);
+  --color-wash-ochre: rgba(140, 90, 22, 0.055);
+  --color-panel-mark: rgba(196, 58, 16, 0.32);
+
+  --color-text: #2a2621;
+  --color-text-soft: #574f47;
+  --color-text-muted: #746a61;
+  --color-text-faint: #a89d92;
+
+  --color-border: #d2c9bc;
+  --color-border-soft: #e8dfd2;
+  --color-border-strong: #b8aa9b;
+  --color-line-link: var(--color-border);
+
+  --color-primary: #c43a10;
+  --color-primary-hover: #b73710;
+  --color-primary-soft: #f1b09a;
+  --color-primary-ink: #7f250e;
+
+  --color-code-bg: #ede6da;
+  --color-code-gutter: #e1d7ca;
+  --color-code-inline: #a83718;
+  --color-code-string: #52733e;
+  --color-code-number: #8c5a16;
+  --color-code-title: #7b4a8f;
+  --color-code-deleted: #a04b42;
+
+  --font-serif:
+    "Source Serif 4", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-sans:
+    "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "MiSans",
+    "OPPO Sans", "vivo Sans", "Microsoft YaHei UI", "Microsoft YaHei",
+    "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC",
+    "WenQuanYi Micro Hei", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "SF Mono", Monaco, Consolas, "Liberation Mono",
+    "PingFang SC", "Microsoft YaHei", monospace;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  --radius-tech: 0;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 6px;
+  --radius-panel: 8px;
+
+  --shadow-hair: 0 1px 0 rgba(42, 38, 33, 0.04);
+  --shadow-panel: 0 20px 60px rgba(70, 54, 35, 0.05);
+  --shadow-float: 0 18px 40px rgba(70, 54, 35, 0.08);
+  --shadow-nav: 0 14px 44px rgba(70, 54, 35, 0.09);
+
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+
+  --line-height-tight: 1.18;
+  --line-height-base: 1.72;
+
+  --measure-reading: 42rem;
+  --measure-wide: 76rem;
+  --measure-full: 88rem;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #1a1915;
+  --color-bg-soft: #211f1a;
+  --color-bg-elevated: #28241e;
+  --color-surface: #332f28;
+  --color-surface-strong: #40392f;
+  --color-ruling: rgba(232, 227, 218, 0.03);
+  --color-wash-warm: rgba(255, 112, 67, 0.045);
+  --color-wash-ochre: rgba(224, 180, 106, 0.04);
+  --color-panel-mark: rgba(255, 112, 67, 0.34);
+
+  --color-text: #e8e3da;
+  --color-text-soft: #c7bfb3;
+  --color-text-muted: #958a7e;
+  --color-text-faint: #6f665e;
+
+  --color-border: #484138;
+  --color-border-soft: #38332c;
+  --color-border-strong: #5e554a;
+  --color-line-link: var(--color-text-faint);
+
+  --color-primary: #ff7043;
+  --color-primary-hover: #ff8a65;
+  --color-primary-soft: #8b321c;
+  --color-primary-ink: #ffd3c2;
+
+  --color-code-bg: #241f1a;
+  --color-code-gutter: #302a23;
+  --color-code-inline: #ff9a77;
+  --color-code-string: #a7c984;
+  --color-code-number: #e0b46a;
+  --color-code-title: #d6a6e4;
+  --color-code-deleted: #e59a90;
+
+  --shadow-hair: 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-panel: 0 22px 70px rgba(0, 0, 0, 0.18);
+  --shadow-float: 0 18px 44px rgba(0, 0, 0, 0.26);
+  --shadow-nav: 0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+}

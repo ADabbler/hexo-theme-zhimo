@@ -1,0 +1,192 @@
+/* Breakpoint: max-width: 480px */
+@media (max-width: 480px) {
+  .pagination-controls {
+    grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+    gap: 0.25rem;
+  }
+
+  .pagination-pages {
+    gap: 0.125rem;
+  }
+
+  .pagination-page {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+
+  .pagination-edge {
+    min-width: 2.75rem;
+    padding: 0;
+  }
+
+  .pagination-gap {
+    min-width: 0.5rem;
+  }
+
+  .header-actions {
+    gap: 0.25rem;
+  }
+
+  .lang-trigger {
+    min-width: 3.35rem;
+    padding: 0 0.55rem;
+  }
+
+  .site-title {
+    font-size: 0.92rem;
+  }
+
+  .site-main-home {
+    padding-top: var(--space-lg);
+  }
+
+  .nav-link {
+    min-height: 3.15rem;
+    padding: 0 var(--space-md);
+  }
+
+  .post-card,
+  .friends-empty,
+  .friends-apply,
+  .friend-card {
+    padding: var(--space-md);
+  }
+
+  .home-cover {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .home-cover-copy {
+    padding: 0;
+  }
+
+  .cover-title {
+    font-size: clamp(2.05rem, 10.8vw, 2.55rem);
+  }
+
+  .cover-subtitle {
+    max-width: 18rem;
+    margin-top: var(--space-md);
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .cover-actions {
+    margin-top: 1.2rem;
+  }
+
+  .cover-actions .text-button {
+    grid-template-columns: minmax(0, 1fr) 2.1rem;
+  }
+
+  .ledger-feature {
+    padding: 0.9rem var(--space-md);
+  }
+
+  .ledger-title {
+    font-size: 1.22rem;
+  }
+
+  .cover-ledger dl > div {
+    padding: 0.65rem 0.45rem;
+  }
+
+  .cover-ledger dl {
+    grid-template-columns: 0.75fr 1.35fr 0.9fr;
+  }
+
+  .post-kicker {
+    font-size: 0.7rem;
+  }
+
+  .post-description {
+    font-size: 0.96rem;
+  }
+
+  .post-content figure.highlight,
+  .post-content > pre {
+    --code-copy-width: 2.85rem;
+    --code-gutter-width: 2.35rem;
+  }
+
+  .post-content figure.highlight table {
+    font-size: 0.8rem;
+    line-height: 1.62;
+  }
+
+  .post-content figure.highlight .gutter .line {
+    padding: 0 0.42rem;
+  }
+
+  .code-lang {
+    padding: 0 0.52rem;
+    font-size: 0.64rem;
+  }
+
+  .mobile-toc-panel {
+    width: min(20rem, calc(100vw - 2rem));
+    max-height: 50vh;
+  }
+
+  .about-profile-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+  }
+
+  .about-avatar {
+    width: 6.25rem;
+  }
+
+  .about-section {
+    padding: var(--space-lg);
+  }
+
+  .cover-actions,
+  .notfound-actions,
+  .text-button {
+    width: 100%;
+  }
+
+  .notfound-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .notfound-actions .text-button:first-child {
+    grid-column: auto;
+  }
+
+  .text-button {
+    grid-template-columns: minmax(0, 1fr) 1.8rem;
+  }
+
+  .friends-apply .text-button {
+    width: fit-content;
+    max-width: 100%;
+    grid-template-columns: auto 1.8rem;
+  }
+
+  .friends-apply .text-button span:first-child {
+    padding: 0 var(--space-sm);
+    white-space: nowrap;
+  }
+
+  .friends-hero {
+    margin-bottom: var(--space-xl);
+  }
+
+  .friends-hero-copy,
+  .friends-apply {
+    gap: var(--space-md);
+  }
+
+  .friends-apply-body {
+    gap: var(--space-md);
+  }
+
+  .tag-index-card {
+    min-height: 3.85rem;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+}

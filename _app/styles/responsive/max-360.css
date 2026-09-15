@@ -1,0 +1,14 @@
+/* Breakpoint: max-width: 360px */
+@media (max-width: 360px) {
+  .cover-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .cover-actions .text-button {
+    min-height: 3rem;
+  }
+
+  .cover-actions .text-button .button-mark {
+    min-height: 3rem;
+  }
+}

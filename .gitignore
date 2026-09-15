@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Keep pnpm-lock.yaml as the only lockfile in the repository
+package-lock.json
+yarn.lock
+bun.lock
+bun.lockb
+
+# Build outputs produced by tools/build.mjs
+source/css/main*.css
+source/css/obsidian-callout*.css
+source/css/photoswipe*.css
+source/js/
+*.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

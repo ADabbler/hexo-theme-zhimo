@@ -1,0 +1,91 @@
+<footer class="site-footer">
+  <%
+  const footerConfig = theme.footer || {};
+  const footerDescription = site_copy('description') || site_copy('subtitle') || config.description || config.subtitle;
+  const currentLang = page_lang(page);
+  const supportedIcons = ['github', 'email', 'rss'];
+  const normalizeAssetUrl = value => {
+    const assetUrl = String(value || '').trim();
+    if (!assetUrl) return '';
+    if (is_external_url(assetUrl) || assetUrl.startsWith('data:')) return assetUrl;
+    return url_for(assetUrl);
+  };
+  const rssHref = normalize_link_url(feed_path(currentLang));
+  const socialLinks = Object.entries(theme.social || {})
+    .filter(([, value]) => value)
+    .map(([name, value]) => {
+      const iconName = String(name).toLowerCase();
+      const href = iconName === 'rss' ? rssHref : normalize_link_url(value);
+      return { name, iconName, href, external: is_external_url(href) };
+    })
+    .filter(link => link.href);
+  const footerRecords = Array.isArray(footerConfig.records)
+    ? footerConfig.records
+      .map(record => {
+        const source = record || {};
+        const url = normalize_link_url(source.url);
+        const icon = source.icon ? normalizeAssetUrl(source.icon) : '';
+        return {
+          text: source.text ? localized_value(source.text, currentLang) : '',
+          url,
+          icon,
+          iconAlt: source.icon_alt ? localized_value(source.icon_alt, currentLang) : '',
+          ariaLabel: source.aria_label ? localized_value(source.aria_label, currentLang) : '',
+          external: is_external_url(url)
+        };
+      })
+      .filter(record => record.text)
+      .map((record, index) => ({
+        ...record,
+        itemClass: index === 0 ? 'is-primary' : 'is-secondary'
+      }))
+    : [];
+  %>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <section class="footer-brand">
+        <h2><%= config.title %></h2>
+        <% if (footerDescription) { %>
+        <p><%= footerDescription %></p>
+        <% } %>
+      </section>
+
+      <% if (socialLinks.length > 0) { %>
+      <nav class="footer-social" aria-label="<%= __('accessibility.social_links') %>">
+        <% for (const { name, iconName, href, external } of socialLinks) { %>
+        <a href="<%= href %>" class="social-link"<%- external ? ' target="_blank" rel="noopener noreferrer"' : '' %> aria-label="<%= name %>">
+          <% if (supportedIcons.includes(iconName)) { %>
+          <svg class="icon" aria-hidden="true"><use href="#icon-<%= iconName %>"></use></svg>
+          <% } else { %>
+          <span class="social-text" aria-hidden="true"><%= String(name).charAt(0).toUpperCase() %></span>
+          <% } %>
+        </a>
+        <% } %>
+      </nav>
+      <% } %>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-legal">
+        <span class="copyright">© <%= new Date().getFullYear() %> <%= config.author %></span>
+        <% footerRecords.forEach(record => { %>
+        <% const recordTag = record.url ? 'a' : 'span'; %>
+        <span class="footer-record-item <%= record.itemClass %>">
+          <span class="footer-separator" aria-hidden="true">|</span>
+          <<%= recordTag %><% if (record.url) { %> href="<%= record.url %>"<% } %> class="footer-record"<%- record.external ? ' target="_blank" rel="noopener noreferrer"' : '' %><% if (record.ariaLabel) { %> aria-label="<%= record.ariaLabel %>"<% } %>>
+            <% if (record.icon) { %>
+            <img class="footer-record-icon" src="<%= record.icon %>" alt="<%= record.iconAlt %>" loading="lazy" decoding="async">
+            <% } %>
+            <span><%= record.text %></span>
+          </<%= recordTag %>>
+        </span>
+        <% }); %>
+      </p>
+      <% if (footerConfig.show_powered !== false) { %>
+      <p class="footer-credit">
+        Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a> | Theme by Zhimo
+      </p>
+      <% } %>
+    </div>
+  </div>
+</footer>

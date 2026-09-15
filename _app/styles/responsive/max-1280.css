@@ -1,0 +1,48 @@
+/* Breakpoint: max-width: 1280px */
+@media (max-width: 1280px) {
+  .post-body-grid.has-toc .post-content,
+  .post-body-grid.has-toc .post-toc {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .post-body-grid.has-toc .post-toc {
+    width: auto;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-md) 0;
+    justify-self: stretch;
+    transform: none;
+    border-left: 0;
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .post-toc {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    overflow-anchor: none;
+  }
+
+  .post-toc .toc-toggle {
+    display: none;
+  }
+
+  .post-toc li.has-children > a {
+    padding-left: 0.75rem;
+  }
+
+  .mobile-toc {
+    position: fixed;
+    left: var(--space-md);
+    bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+    z-index: 26;
+    display: block;
+    pointer-events: none;
+  }
+
+  .mobile-toc.is-visible,
+  .mobile-toc.is-open {
+    pointer-events: auto;
+  }
+}

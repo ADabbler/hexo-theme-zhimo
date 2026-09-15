@@ -1,0 +1,100 @@
+# Zhimo theme configuration.
+# Every option is documented in the configuration guide linked from README.md.
+
+# Header navigation. Keys use labels from languages/*.yml.
+menu:
+  menu.home: /
+  menu.archives: /archives/
+  menu.friends: /friends/
+  menu.about: /about/
+
+# Contact links shown in the footer, about page, and friends page.
+# RSS uses the feed path for the current page language.
+social:
+  RSS: /atom.xml
+  # GitHub: https://github.com/your-name
+  # Email: mailto:you@example.com
+
+# Site subtitle and description. Both take a plain string or a value keyed
+# by language, for example:
+# subtitle:
+#   zh-CN: 中文站点副标题
+#   en: English site subtitle
+site:
+  subtitle:
+  description:
+
+# Label above the home cover title.
+home:
+  cover_kicker:
+    zh-CN: 写作与记录
+    en: Writing and notes
+
+featured_count: 3 # Posts in the featured list on the home page, selected with `featured: true`.
+latest_count: 5 # Posts in the latest list on the home page.
+excerpt_length: 160 # Summary length in characters, used by the lists.
+
+# Footer options.
+# Footer records are for ICP filings, public security filings, licenses,
+# or other compliance links. Keep official filing numbers in their original
+# registered text. For public security filings, use the icon and URL provided
+# by the filing platform. The icon can be a local path or an HTTPS URL.
+#
+# Example:
+# records:
+#   - text: 京ICP备00000000号-1
+#     url: https://beian.miit.gov.cn/
+#     aria_label:
+#       zh-CN: ICP备案号：京ICP备00000000号-1
+#       en: "ICP filing: 京ICP备00000000号-1"
+#   - text: 京公网安备 00000000000000号
+#     url: https://beian.mps.gov.cn/#/query/webSearch?code=00000000000000
+#     icon: /images/beian.png
+#     icon_alt:
+#       zh-CN: 公安备案图标
+#       en: Public security registration icon
+footer:
+  show_powered: true # Theme attribution line.
+  records: [] # Compliance entries. An empty array renders nothing.
+
+# Post table of contents. Depths are heading levels.
+toc:
+  enable: true # Article table of contents.
+  min_depth: 1 # Lowest heading level listed.
+  max_depth: 3 # Highest heading level listed.
+  max_items: 30 # Entry limit.
+  list_number: false # Number the entries.
+
+# Archive page.
+taxonomy:
+  archive_tag_limit: 16 # Tags listed on the archive page. The all-tags index lists every tag.
+
+# Post route roots for multilingual post links. Each value fills the
+# :post_root permalink variable of that language.
+post_paths:
+  default_root: posts # Used by the default language.
+  language_roots:
+    en: en/posts # Used by English. Add one entry per other language.
+
+# Related posts on post pages, picked from shared categories and tags.
+related_posts:
+  enable: true
+  count: 3 # Number of related posts.
+
+# Search overlay. Requires hexo-generator-searchdb, and the path has to
+# match the output of that generator.
+search:
+  enable: true
+  path: search.json
+
+# Code block enhancements.
+highlight:
+  copy_button: true # Copy button on code blocks.
+
+# Accessibility.
+skip_link: true # Keyboard skip link.
+
+# Optional integrations.
+# photoswipe and obsidian_callout are enabled in the root site _config.yml,
+# next to theme_config. Their options are documented in the configuration
+# guide linked from README.md.

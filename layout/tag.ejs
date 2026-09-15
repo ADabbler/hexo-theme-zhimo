@@ -1,0 +1,44 @@
+<div class="tag-page">
+  <%
+  const currentLang = page_lang(page);
+  const posts = page.posts.toArray();
+  %>
+  <header class="page-header reveal-item">
+    <h1 class="page-title"><%= __('tag.title') %>: <%= page.tag %></h1>
+    <p class="tag-total"><%= __('archive.total', page.total_posts) %></p>
+  </header>
+
+  <% if (posts.length === 0) { %>
+  <%- partial('_partial/listing-empty') %>
+  <% } else { %>
+  <div class="post-list reveal-item">
+    <% posts.forEach(post => { %>
+    <%
+    const category = first_category(post);
+    const postSummary = post_list_summary(post);
+    %>
+    <article class="post-item">
+      <time class="post-date" datetime="<%= post.date.toISOString() %>">
+        <%= date(post.date, 'YYYY-MM-DD') %>
+      </time>
+      <div class="post-main">
+        <h2 class="post-title">
+          <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+        </h2>
+        <% if (category) { %>
+        <span class="post-category">
+          <a href="<%= url_for(localized_path(category.path, currentLang)) %>">
+            <%= category.name %>
+          </a>
+        </span>
+        <% } %>
+        <% if (postSummary) { %>
+        <p class="post-excerpt"><%= postSummary %></p>
+        <% } %>
+      </div>
+    </article>
+    <% }); %>
+  </div>
+  <% } %>
+  <%- partial('_partial/pagination') %>
+</div>

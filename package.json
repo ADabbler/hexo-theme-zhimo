@@ -1,0 +1,75 @@
+{
+  "name": "hexo-theme-zhimo",
+  "version": "0.1.0",
+  "description": "A paper-and-ink editorial Hexo theme for personal publishing.",
+  "author": "Dabbler <email@dabbler.top>",
+  "license": "MIT",
+  "type": "commonjs",
+  "keywords": [
+    "hexo",
+    "hexo-theme",
+    "zhimo",
+    "blog",
+    "editorial",
+    "multilingual",
+    "responsive",
+    "dark-mode"
+  ],
+  "homepage": "https://github.com/ADabbler/hexo-theme-zhimo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ADabbler/hexo-theme-zhimo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ADabbler/hexo-theme-zhimo/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@11.24.0",
+  "files": [
+    "_config.yml",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "languages/**",
+    "layout/**",
+    "lib/**",
+    "scripts/**",
+    "source/**"
+  ],
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "watch": "node tools/build.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm run typecheck && pnpm run build",
+    "check:package": "node tools/verify-package.mjs",
+    "sync-serif-sc": "node tools/sync-serif-sc.mjs",
+    "prepare": "node tools/build.mjs"
+  },
+  "dependencies": {
+    "hexo-pagination": "^4.0.0",
+    "hexo-util": "^4.0.0"
+  },
+  "peerDependencies": {
+    "hexo": ">=7.0.0",
+    "hexo-obsidian-callout": ">=0.1.0",
+    "hexo-renderer-ejs": ">=2.0.0",
+    "photoswipe": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "hexo-obsidian-callout": {
+      "optional": true
+    },
+    "photoswipe": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@fontsource/noto-serif-sc": "5.2.8",
+    "cn-font-split": "7.4.3",
+    "esbuild": "^0.28.2",
+    "photoswipe": "^5.4.4",
+    "typescript": "^7.0.2"
+  }
+}

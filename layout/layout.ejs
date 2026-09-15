@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<%
+const documentLang = page_lang(page);
+
+const isHomePage = is_home_page(page);
+const mainClass = `site-main${isHomePage ? ' site-main-home' : ''}`;
+%>
+<html lang="<%= documentLang %>" data-theme="auto">
+<head>
+  <%- partial('_partial/head') %>
+</head>
+<body>
+  <% if (theme.skip_link) { %>
+  <a href="#content" class="skip-link"><%= __('accessibility.skip_to_content') %></a>
+  <% } %>
+
+  <%- partial('_partial/header') %>
+
+  <main id="content" class="<%= mainClass %>">
+    <%- body %>
+  </main>
+
+  <%- partial('_partial/footer') %>
+  <%- partial('_partial/scripts') %>
+</body>
+</html>

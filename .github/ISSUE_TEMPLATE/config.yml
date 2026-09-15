@@ -1,0 +1,4 @@
+contact_links:
+  - name: Configuration and usage questions
+    url: https://github.com/ADabbler/hexo-theme-zhimo/blob/main/docs/configuration.md
+    about: Check the configuration guide first — 配置与使用问题请先查阅配置指南

@@ -1,0 +1,33 @@
+<div class="category-page">
+  <%
+  const posts = page.posts.toArray();
+  %>
+  <header class="page-header reveal-item">
+    <h1 class="page-title"><%= __('category.title') %>: <%= page.category %></h1>
+    <p class="category-total"><%= __('archive.total', page.total_posts) %></p>
+  </header>
+
+  <% if (posts.length === 0) { %>
+  <%- partial('_partial/listing-empty') %>
+  <% } else { %>
+  <div class="post-list reveal-item">
+    <% posts.forEach(post => { %>
+    <% const postSummary = post_list_summary(post); %>
+    <article class="post-item">
+      <time class="post-date" datetime="<%= post.date.toISOString() %>">
+        <%= date(post.date, 'YYYY-MM-DD') %>
+      </time>
+      <div class="post-main">
+        <h2 class="post-title">
+          <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+        </h2>
+        <% if (postSummary) { %>
+        <p class="post-excerpt"><%= postSummary %></p>
+        <% } %>
+      </div>
+    </article>
+    <% }); %>
+  </div>
+  <% } %>
+  <%- partial('_partial/pagination') %>
+</div>

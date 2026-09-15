@@ -1,0 +1,22 @@
+<%
+const currentLang = page_lang(page);
+const otherLanguage = configured_languages().find(lang =>
+  lang !== currentLang && posts_for_language(site.posts, lang).length && language_path(page, lang)
+);
+const browsePath = archive_path(currentLang);
+const canBrowse = browsePath && normalize_route_path(browsePath) !== normalize_route_path(page.path);
+%>
+<section class="listing-empty reveal-item">
+  <h2><%= __('listing.empty_title') %></h2>
+  <p><%= __('listing.empty_description') %></p>
+  <% if (otherLanguage || canBrowse) { %>
+  <div class="listing-empty-actions">
+    <% if (otherLanguage) { %>
+    <a class="text-button" href="<%= href_for_path(language_path(page, otherLanguage)) %>"><%= __('listing.empty_other_language', language_long_label(otherLanguage)) %></a>
+    <% } %>
+    <% if (canBrowse) { %>
+    <a class="text-button<%= otherLanguage ? ' secondary' : '' %>" href="<%= url_for(browsePath) %>"><%= __('listing.empty_browse') %></a>
+    <% } %>
+  </div>
+  <% } %>
+</section>

@@ -1,0 +1,163 @@
+<%
+const friendsData = site.data && site.data.friends ? site.data.friends : {};
+const friendGroups = Array.isArray(friendsData.groups) ? friendsData.groups : [];
+const currentLang = page_lang(page);
+
+function isRecord(value) {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value));
+}
+
+const intro = localized_value(friendsData.intro, currentLang) || page.description || '';
+const apply = isRecord(friendsData.apply) ? friendsData.apply : {};
+const applyDescription = localized_value(apply.description, currentLang);
+
+function normalizeLinkUrl(value) {
+  const linkUrl = String(value || '').trim();
+  if (!linkUrl) return '';
+  if (/^(?:https?:\/\/|\/\/|mailto:|tel:)/i.test(linkUrl)) return linkUrl;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(linkUrl)) return '';
+  return url_for(linkUrl);
+}
+
+function normalizeAssetUrl(value) {
+  const assetUrl = String(value || '').trim();
+  if (!assetUrl) return '';
+  if (/^(?:https?:|data:|\/\/)/i.test(assetUrl)) return assetUrl;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(assetUrl)) return '';
+  return url_for(assetUrl);
+}
+
+function normalizeFriend(friend) {
+  if (!isRecord(friend)) return null;
+
+  const url = normalizeLinkUrl(friend.url);
+  if (!url) return null;
+
+  return {
+    ...friend,
+    url,
+    avatar: normalizeAssetUrl(friend.avatar),
+    tags: Array.isArray(friend.tags) ? friend.tags.filter(Boolean) : []
+  };
+}
+
+function hostnameFor(value) {
+  const url = String(value || '');
+  try {
+    if (url.startsWith('//')) return new URL(`https:${url}`).hostname;
+    if (/^https?:\/\//i.test(url)) return new URL(url).hostname;
+  } catch {
+    return url.replace(/^[a-z]+:\/\//i, '').replace(/\/.*$/, '');
+  }
+
+  return url.replace(/^\/+/, '').replace(/\/.*$/, '');
+}
+
+const visibleGroups = friendGroups
+  .map((group, groupIndex) => {
+    const source = isRecord(group) ? group : {};
+    const items = Array.isArray(source.items)
+      ? source.items
+        .map(normalizeFriend)
+        .filter(Boolean)
+      : [];
+    return {
+      groupIndex,
+      items,
+      name: localized_value(source.name, currentLang),
+      description: localized_value(source.description, currentLang)
+    };
+  })
+  .filter(entry => entry.items.length > 0);
+const email = normalizeLinkUrl(theme.social && theme.social.Email ? theme.social.Email : '');
+%>
+
+<div class="friends-page">
+  <header class="friends-hero reveal-item">
+    <div class="friends-hero-copy">
+      <div>
+        <p class="section-kicker"><%= __('friends.kicker') %></p>
+        <h1 class="page-title"><%= page.title || __('friends.title') %></h1>
+      </div>
+      <% if (intro) { %>
+      <p class="friends-intro"><%= intro %></p>
+      <% } %>
+    </div>
+
+    <% if (applyDescription || email) { %>
+    <section class="friends-apply">
+      <div>
+        <p class="section-kicker"><%= __('friends.apply_kicker') %></p>
+        <h2><%= __('friends.apply_title') %></h2>
+      </div>
+      <div class="friends-apply-body">
+        <% if (applyDescription) { %>
+        <p><%= applyDescription %></p>
+        <% } %>
+        <% if (email) { %>
+        <a class="text-button secondary" href="<%= email %>">
+          <span><%= __('friends.contact') %></span>
+          <span class="button-mark" aria-hidden="true">/</span>
+        </a>
+        <% } %>
+      </div>
+    </section>
+    <% } %>
+  </header>
+
+  <% if (visibleGroups.length > 0) { %>
+  <div class="friends-groups">
+    <% visibleGroups.forEach(({ groupIndex, items, name, description: groupDescription }) => { %>
+    <section class="friends-group reveal-item" style="--reveal-index: <%= groupIndex %>">
+      <% if (name) { %>
+      <div class="section-heading compact">
+        <h2 class="section-title"><%= name %></h2>
+        <% if (groupDescription) { %>
+        <p class="group-description"><%= groupDescription %></p>
+        <% } %>
+      </div>
+      <% } %>
+
+      <div class="friend-card-grid">
+        <% items.forEach((friend, index) => {
+          const url = friend.url;
+          const hostname = hostnameFor(url);
+          const description = localized_value(friend.description, currentLang);
+          const isExternal = /^(?:https?:)?\/\//i.test(url);
+        %>
+        <a class="friend-card reveal-item" style="--reveal-index: <%= index %>" href="<%= url %>"<% if (isExternal) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+          <div class="friend-avatar" aria-hidden="true">
+            <% if (friend.avatar) { %>
+            <img src="<%= friend.avatar %>" alt="" loading="lazy">
+            <% } else { %>
+            <span><%= String(friend.name || '?').charAt(0).toUpperCase() %></span>
+            <% } %>
+          </div>
+          <div class="friend-main">
+            <h3><%= friend.name || hostname %></h3>
+            <% if (description) { %>
+            <p><%= description %></p>
+            <% } %>
+            <span><%= hostname %></span>
+          </div>
+          <% if (friend.tags.length > 0) { %>
+          <div class="friend-tags">
+            <% friend.tags.forEach(tag => { %>
+            <span><%= tag %></span>
+            <% }); %>
+          </div>
+          <% } %>
+        </a>
+        <% }); %>
+      </div>
+    </section>
+    <% }); %>
+  </div>
+  <% } else { %>
+  <section class="friends-empty reveal-item">
+    <h2><%= __('friends.empty_title') %></h2>
+    <p><%= __('friends.empty_description') %></p>
+  </section>
+  <% } %>
+
+</div>

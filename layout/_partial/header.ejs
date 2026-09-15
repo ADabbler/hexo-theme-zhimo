@@ -1,0 +1,117 @@
+<%
+const configuredLanguages = configured_languages();
+const currentLang = page_lang(page);
+const menuEntries = Object.entries(theme.menu || {})
+  .filter(([, link]) => link)
+  .map(([name, link]) => [name, navigation_path(link, currentLang, name)])
+  .filter(([, link]) => link);
+
+const currentRoute = typeof path === 'string' ? path : page.path;
+const currentPath = normalize_route_path(url_for(currentRoute || '/'));
+const currentIsPost = is_post();
+const currentIsListing = ['archive', 'category', 'tag', 'tag-index'].includes(page.listing && page.listing.kind);
+const homeNavPath = normalize_route_path(url_for(home_path(currentLang)));
+const archivePath = archive_path(currentLang);
+const archiveNavPath = archivePath ? normalize_route_path(url_for(archivePath)) : '';
+
+function isCurrentOrChild(navPath) {
+  return currentPath === navPath || currentPath.startsWith(`${navPath}/`);
+}
+
+function isNavActive(linkPath) {
+  const navPath = normalize_route_path(url_for(linkPath));
+  if (navPath === homeNavPath) return currentPath === navPath;
+
+  const isArticleNav = navPath === archiveNavPath && (currentIsPost || currentIsListing);
+  return isCurrentOrChild(navPath) || isArticleNav;
+}
+%>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <a href="<%= url_for(home_path(currentLang)) %>" class="site-title" rel="home">
+        <%= config.title %>
+      </a>
+    </div>
+
+    <nav class="site-nav" aria-label="<%= __('accessibility.primary_nav') %>">
+      <ul class="nav-menu" id="primary-menu">
+        <% for (const [name, navPath] of menuEntries) {
+          const isActive = isNavActive(navPath);
+          const ariaCurrent = currentPath === normalize_route_path(url_for(navPath)) ? 'page' : 'location';
+        %>
+        <li class="nav-item">
+          <a href="<%= url_for(navPath) %>" class="nav-link<%= isActive ? ' active' : '' %>"<% if (isActive) { %> aria-current="<%= ariaCurrent %>"<% } %>>
+            <%= __(name) %>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <% if (theme.search && theme.search.enable) { %>
+      <button class="search-trigger" type="button" aria-label="<%= __('search.button') %>">
+        <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+      </button>
+      <% } %>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="<%= __('accessibility.toggle_theme') %>"
+        data-label-prefix="<%= __('accessibility.toggle_theme') %>"
+        data-label-auto="<%= __('theme.auto') %>"
+        data-label-light="<%= __('theme.light') %>"
+        data-label-dark="<%= __('theme.dark') %>">
+        <span class="theme-mode-label icon-auto" aria-hidden="true"><%= __('theme.auto_short') %></span>
+        <svg class="icon icon-light" aria-hidden="true"><use href="#icon-sun"></use></svg>
+        <svg class="icon icon-dark" aria-hidden="true"><use href="#icon-moon"></use></svg>
+      </button>
+
+      <% if (configuredLanguages.length > 1) { %>
+      <div class="lang-switch">
+        <button
+          class="lang-trigger"
+          type="button"
+          aria-label="<%= __('language.switch') %>"
+          aria-expanded="false"
+          aria-controls="language-menu">
+          <span><%= language_short_label(currentLang) %></span>
+        </button>
+        <ul class="lang-menu" id="language-menu">
+          <% configuredLanguages.forEach(lang => {
+            const targetPath = language_path(page, lang);
+            const isCurrent = lang === currentLang;
+            const label = !isCurrent && page.listing && page.current > 1
+              ? __('language.list_start', language_long_label(lang))
+              : language_long_label(lang);
+          %>
+          <li>
+            <% if (isCurrent) { %>
+            <span class="active" aria-current="true"><%= label %></span>
+            <% } else if (targetPath) { %>
+            <a href="<%= href_for_path(targetPath) %>" hreflang="<%= lang %>"><%= label %></a>
+            <% } else { %>
+            <span class="disabled" aria-disabled="true"><%= label %></span>
+            <% } %>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+      <% } %>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="<%= __('accessibility.open_menu') %>"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+        data-label-open="<%= __('accessibility.open_menu') %>"
+        data-label-close="<%= __('accessibility.close_menu') %>">
+        <span class="nav-toggle-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>

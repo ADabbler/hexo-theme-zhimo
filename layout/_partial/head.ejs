@@ -1,0 +1,147 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<%
+const currentLang = page_lang(page);
+const siteTitle = config.title;
+const siteDescription = site_copy('description') || site_copy('subtitle') || config.description || '';
+const keywords = page.keywords || (page.tags && page.tags.map(t => t.name).join(', ')) || '';
+const author = page.author || config.author;
+const url = canonical_url(page);
+const alternatePaths = alternate_language_paths(page);
+
+function plainText(value) {
+  return strip_html(String(value || '')).trim();
+}
+
+function resolvedPageTitle() {
+  if (page.title) return page.title;
+  if (page.tag_index) return __('tag.index_title');
+  if (is_archive()) return archive_page_title();
+  if (is_category()) return `${__('category.title')}: ${page.category}`;
+  if (is_tag()) return `${__('tag.title')}: ${page.tag}`;
+  return '';
+}
+
+function resolvedPageDescription() {
+  if (page.description) return page.description;
+  if (page.excerpt) return page.excerpt;
+  if (page.tag_index) return __('tag.index_description');
+  if (is_category()) return __('category.description', siteTitle, page.category);
+  if (is_tag()) return __('tag.description', siteTitle, page.tag);
+  if (is_archive()) {
+    if (page.year && page.month && page.day) return __('archive.day_description', siteTitle, page.year, archive_month_value(page.month), archive_month_value(page.day));
+    if (page.year && page.month) return __('archive.month_description', siteTitle, page.year, archive_month_value(page.month));
+    if (page.year) return __('archive.year_description', siteTitle, page.year);
+    return __('archive.description', siteTitle);
+  }
+  return siteDescription;
+}
+
+const basePageTitle = plainText(resolvedPageTitle());
+const pageTitle = page.listing && page.current > 1
+  ? `${basePageTitle} · ${__('pagination.page', page.current)}`
+  : basePageTitle;
+const homeTitleSuffix = plainText(site_copy('subtitle') || siteDescription);
+const isHomePage = is_home_page(page);
+let title = siteTitle;
+if (isHomePage && homeTitleSuffix) {
+  title = `${siteTitle} | ${homeTitleSuffix}`;
+} else if (!isHomePage && pageTitle) {
+  title = `${pageTitle} | ${siteTitle}`;
+}
+const socialTitle = isHomePage ? siteTitle : (pageTitle || siteTitle);
+const description = resolvedPageDescription();
+const metaDescription = strip_html(description).substring(0, 200);
+const feedPath = feed_path(currentLang);
+const feedUrl = feedPath ? full_url_for(feedPath) : '';
+%>
+
+<title><%= title %></title>
+<meta name="description" content="<%= metaDescription %>">
+<% if (keywords) { %>
+<meta name="keywords" content="<%= keywords %>">
+<% } %>
+<meta name="author" content="<%= author %>">
+
+<meta property="og:type" content="<%= is_post() ? 'article' : 'website' %>">
+<meta property="og:title" content="<%= socialTitle %>">
+<meta property="og:url" content="<%= url %>">
+<meta property="og:site_name" content="<%= config.title %>">
+<meta property="og:description" content="<%= metaDescription %>">
+<meta property="og:locale" content="<%= currentLang.replace('-', '_') %>">
+<% if (page.updated) { %>
+<meta property="og:updated_time" content="<%= page.updated.toISOString() %>">
+<% } %>
+<% if (is_post()) { %>
+<meta property="article:published_time" content="<%= page.date.toISOString() %>">
+<% if (page.updated) { %>
+<meta property="article:modified_time" content="<%= page.updated.toISOString() %>">
+<% } %>
+<meta property="article:author" content="<%= author %>">
+<% } %>
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= socialTitle %>">
+<meta name="twitter:description" content="<%= metaDescription %>">
+
+<link rel="canonical" href="<%= url %>">
+<%
+const defaultAlternate = alternatePaths.length > 1
+  ? alternatePaths.find(item => item.lang === configured_languages()[0])
+  : null;
+%>
+<% alternatePaths.forEach(item => { %>
+<link rel="alternate" hreflang="<%= item.lang %>" href="<%= absolute_url(item.path) %>">
+<% }); %>
+<% if (defaultAlternate) { %>
+<link rel="alternate" hreflang="x-default" href="<%= absolute_url(defaultAlternate.path) %>">
+<% } %>
+
+<% if (feedUrl) { %>
+<link rel="alternate" href="<%= feedUrl %>" type="application/atom+xml" title="<%= config.title %>">
+<% } %>
+
+<link rel="icon" href="<%= url_for('/favicon.ico') %>">
+<link rel="icon" type="image/png" sizes="32x32" href="<%= url_for('/favicon-32x32.png') %>">
+<link rel="icon" type="image/png" sizes="16x16" href="<%= url_for('/favicon-16x16.png') %>">
+<link rel="apple-touch-icon" sizes="180x180" href="<%= url_for('/apple-touch-icon.png') %>">
+<link rel="manifest" href="<%= url_for('/site.webmanifest') %>">
+
+<meta name="theme-color" content="#fefdfb">
+
+<script>
+(function() {
+  document.documentElement.classList.add('js');
+
+  var stored = null;
+  try {
+    stored = window.localStorage && localStorage.getItem('zhimo-theme');
+  } catch (error) {}
+  var preferred = stored && /^(light|dark|auto)$/.test(stored) ? stored : 'auto';
+  var isDark = preferred === 'dark' ||
+    (preferred === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme-preference', preferred);
+  var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta && isDark) themeColorMeta.content = '#1a1915';
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.setAttribute('data-motion', 'reduced');
+  }
+})();
+</script>
+
+<link rel="preload" href="<%= url_for('/fonts/SourceSerif4-Regular.woff2') %>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<%= url_for('/fonts/GeistSans-Regular.woff2') %>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<%= url_for('/fonts/GeistSans-Bold.woff2') %>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<%= url_for('/fonts/JetBrainsMonoNL-Regular.woff2') %>" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="<%= versioned_asset('css/fonts.css') %>">
+<link rel="stylesheet" href="<%= versioned_asset('css/fonts-serif-sc.css') %>">
+<link rel="stylesheet" href="<%= versioned_asset('css/main.css') %>">
+<% if (obsidian_callout_enabled()) { %>
+<link rel="stylesheet" href="<%= versioned_asset('css/obsidian-callout.css') %>">
+<% } %>
+<% if (is_post() && photoswipe_enabled()) { %>
+<link rel="stylesheet" href="<%= versioned_asset('css/photoswipe.css') %>">
+<% } %>

@@ -1,0 +1,175 @@
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-4xl) var(--space-md);
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    visibility var(--duration-base) var(--ease-standard);
+}
+
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-modal {
+  width: min(42rem, 100%);
+  max-height: calc(100vh - 8rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-1rem);
+  transition: transform var(--duration-base) var(--ease-standard);
+  overflow: hidden;
+}
+
+.search-overlay.active .search-modal {
+  transform: translateY(0);
+}
+
+.search-header {
+  display: grid;
+  grid-template-columns: 1fr 2.35rem;
+  gap: var(--space-sm);
+  align-items: center;
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.search-input {
+  width: 100%;
+  min-height: 3.1rem;
+  color: var(--color-text);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  outline: 0;
+  padding: 0 var(--space-md);
+  font-family: var(--font-sans);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-close {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  color: var(--color-text-muted);
+}
+
+.search-results {
+  overflow-y: auto;
+  padding: var(--space-md);
+}
+
+.search-result-item {
+  display: block;
+  padding: var(--space-md);
+  color: var(--color-text);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.search-result-item:hover {
+  background: var(--color-bg-soft);
+  border-color: var(--color-border-soft);
+}
+
+.search-result-item + .search-result-item {
+  margin-top: var(--space-xs);
+}
+
+.result-title {
+  margin: 0 0 var(--space-xs);
+  font-size: 1rem;
+}
+
+.result-excerpt {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.result-excerpt mark,
+.result-title mark {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  padding: 0 0.15rem;
+}
+
+.search-no-results,
+.search-error {
+  padding: var(--space-2xl);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  text-align: center;
+}
+
+.search-no-results span,
+.search-error span {
+  display: block;
+  margin-top: var(--space-xs);
+  color: var(--color-text-soft);
+  font-size: 0.88rem;
+}
+
+.search-results-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md) 0;
+  border-top: 1px solid var(--color-border-soft);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.search-more-button {
+  min-height: 2.25rem;
+  padding: 0 var(--space-sm);
+  color: var(--color-text);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: var(--font-weight-semibold);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-press);
+}
+
+.search-more-button:hover {
+  color: var(--color-bg);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.search-more-button:active {
+  transform: translateY(1px);
+}

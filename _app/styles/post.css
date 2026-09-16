@@ -1072,8 +1072,6 @@
 .related-posts {
   max-width: var(--measure-reading);
   margin: var(--space-2xl) auto 0;
-  padding: var(--space-md) 0 0;
-  border-top: 1px solid var(--color-border-soft);
 }
 
 .related-posts .section-heading {
@@ -1083,6 +1081,7 @@
 .related-list {
   display: grid;
   gap: 0;
+  border-bottom: 1px solid var(--color-border-soft);
   list-style: none;
 }
 

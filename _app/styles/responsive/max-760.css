@@ -307,6 +307,7 @@
   }
 
   .post-nav {
+    gap: 0;
     margin-top: var(--space-2xl);
   }
 
@@ -314,6 +315,10 @@
     min-height: 0;
     gap: var(--space-md);
     padding: var(--space-md) 0;
+  }
+
+  .post-nav-item + .post-nav-item {
+    border-top: 0;
   }
 
   .year-group {

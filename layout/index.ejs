@@ -34,10 +34,12 @@ const latestPost = latestPostItem ? latestPostItem.post : null;
     <section class="home-cover reveal-item">
       <div class="home-cover-copy">
         <p class="cover-kicker"><%= coverKicker %></p>
-        <h1 class="cover-title"><%= config.title %></h1>
-        <% if (siteSubtitle) { %>
-        <p class="cover-subtitle"><%= siteSubtitle %></p>
-        <% } %>
+        <div class="cover-heading">
+          <h1 class="cover-title"><%= config.title %></h1>
+          <% if (siteSubtitle) { %>
+          <p class="cover-subtitle"><%= siteSubtitle %></p>
+          <% } %>
+        </div>
         <div class="cover-actions">
           <% if (archivesPath) { %>
           <a href="<%= url_for(archivesPath) %>" class="text-button">
@@ -136,7 +138,7 @@ const latestPost = latestPostItem ? latestPostItem.post : null;
   </section>
 
   <% if (featuredPostItems.length > 0) { %>
-  <section class="home-grid reveal-item">
+  <section class="reveal-item">
     <div class="featured-section">
       <div class="section-heading compact">
         <div>

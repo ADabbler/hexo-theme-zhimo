@@ -68,7 +68,7 @@
     }
   },
   "devDependencies": {
-    "@fontsource/noto-serif-sc": "5.3.0",
+    "@fontsource/noto-serif-sc": "5.3.1",
     "cn-font-split": "7.4.3",
     "esbuild": "^0.28.2",
     "photoswipe": "^5.4.4",

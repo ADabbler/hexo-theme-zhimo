@@ -364,7 +364,8 @@
     text-align: right;
   }
 
-  .friend-card-grid {
+  .friend-card-grid,
+  .about-project-grid {
     grid-template-columns: 1fr;
   }
 
@@ -383,6 +384,10 @@
 
   .about-section {
     min-height: 0;
+  }
+
+  .about-projects {
+    margin-top: var(--space-xl);
   }
 
   .search-overlay {

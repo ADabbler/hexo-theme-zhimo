@@ -84,6 +84,13 @@ tag:
   empty_title: 暂无标签
   empty_description: 暂无可浏览的标签。
 
+projects:
+  title: 项目与作品
+  kicker: 项目
+  source: 源码
+  demo: 在线体验
+  tags: 技术与方向
+
 friends:
   title: 友链
   kicker: 友链

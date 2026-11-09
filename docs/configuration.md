@@ -222,6 +222,52 @@ source/en/friends/index.md
 
 - Level-two headings in the about page are styled as sections. A friends page file defines the route and the page metadata, while the links come from `source/_data/friends.yml`.
 
+## About Page and Projects
+
+Create an about page with `layout: about`. Use `source/about/index.md` for the default language and `source/<lang>/about/index.md` for other configured languages, with a matching `lang` value. This example assumes English is the default language:
+
+```markdown
+---
+title: About
+layout: about
+lang: en
+---
+
+## About this site
+Describe the blog's content and focus.
+
+## About me
+Introduce your interests and background.
+```
+
+Top-level `##` headings define the introduction sections. Front matter fields `profile_title`, `profile_note` and `avatar` set the name, introduction and avatar. By default, the name uses the site author or page title, the introduction uses the theme's `site.subtitle` or the site's `description`, and the avatar shows the name's first character.
+
+Store projects in the site's `source/_data/projects.yml`. Each entry creates one card:
+
+```yaml
+- name: Example Project
+  kind:
+    en: Open-source tool
+    zh-CN: 开源工具
+  status:
+    en: Maintained
+    zh-CN: 维护中
+  description:
+    en: A short description of the problem this project solves.
+    zh-CN: 项目的一句话介绍，说明它解决什么问题。
+  tags:
+    - TypeScript
+    - CLI
+  source: https://github.com/example/project
+  demo: /tools/example/
+```
+
+- `name` is required text. Other fields are optional and appear when populated.
+- `kind` is the project type, `status` the status or license label, and `description` the project summary. `source` and `demo` are the source-code and live-demo links. The title uses `source` first, then `demo`.
+- `name`, `kind`, `status` and `description` accept a string or a value keyed by language, treated as plain text. `tags` is an array whose entries accept the same formats. Localized pages share the project data. Text is resolved from the current language, the site's default language, then the field's first language value.
+- `source` and `demo` accept site paths, HTTP(S) URLs and URLs starting with `//`. External links open in a new tab. Site paths follow the site's `root` setting; include a language prefix as needed.
+- Configured projects are shown by default. Set `show_projects: false` in the about page's Markdown front matter to hide the project section.
+
 ## Search, Feeds and Callouts
 
 The search overlay needs `hexo-generator-searchdb` installed. The theme side has only the switch and the index path, and that path has to match the generator output:

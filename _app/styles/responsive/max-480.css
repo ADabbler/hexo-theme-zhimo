@@ -142,6 +142,10 @@
     padding: var(--space-lg);
   }
 
+  .project-card {
+    padding: var(--space-lg);
+  }
+
   .cover-actions,
   .notfound-actions,
   .text-button {

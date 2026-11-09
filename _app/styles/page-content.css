@@ -18,6 +18,10 @@
   align-items: start;
 }
 
+.about-main {
+  min-width: 0;
+}
+
 .page-content-about .page-body {
   max-width: none;
 }

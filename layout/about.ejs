@@ -61,8 +61,13 @@ const aboutContent = about_section_grid(page.content);
       <% } %>
     </aside>
 
-    <div class="page-body about-content">
-      <%- aboutContent %>
+    <div class="about-main">
+      <div class="page-body about-content">
+        <%- aboutContent %>
+      </div>
+      <% if (page.show_projects !== false) { %>
+      <%- partial('_partial/about-projects') %>
+      <% } %>
     </div>
   </article>
 </div>

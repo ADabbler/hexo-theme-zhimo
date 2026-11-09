@@ -18,6 +18,7 @@
   archive-taxonomy,
   pagination,
   page-content,
+  about-projects,
   friends,
   search,
   not-found,
@@ -37,6 +38,7 @@
 @import "./archive-taxonomy.css" layer(archive-taxonomy);
 @import "./pagination.css" layer(pagination);
 @import "./page-content.css" layer(page-content);
+@import "./about-projects.css" layer(about-projects);
 @import "./friends.css" layer(friends);
 @import "./search.css" layer(search);
 @import "./not-found.css" layer(not-found);

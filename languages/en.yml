@@ -84,6 +84,13 @@ tag:
   empty_title: No tags yet
   empty_description: No tags are available yet.
 
+projects:
+  title: Projects and work
+  kicker: Projects
+  source: Source
+  demo: Live demo
+  tags: Technologies and topics
+
 friends:
   title: Friends
   kicker: Links

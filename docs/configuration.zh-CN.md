@@ -222,6 +222,52 @@ source/en/friends/index.md
 
 - 关于页的二级标题会渲染为区块。友链页文件决定路由与页面元信息，链接数据来自 `source/_data/friends.yml`。
 
+## 关于页与项目展示
+
+创建关于页并设置 `layout: about`。默认语言页面放在 `source/about/index.md`，其他已配置语言放在 `source/<lang>/about/index.md`，并填写对应的 `lang`。以下示例以中文为默认语言：
+
+```markdown
+---
+title: 关于
+layout: about
+lang: zh-CN
+---
+
+## 关于本站
+介绍博客的内容与方向。
+
+## 关于我
+介绍自己的兴趣与经历。
+```
+
+正文按顶层二级标题划分介绍区块。Front Matter 中的 `profile_title`、`profile_note` 和 `avatar` 分别设置名称、简介和头像。默认名称取站点作者或页面标题，简介取主题的 `site.subtitle` 或站点的 `description`，头像显示名称首字。
+
+项目数据放在站点的 `source/_data/projects.yml` 中，一个条目对应一张卡片：
+
+```yaml
+- name: Example Project
+  kind:
+    zh-CN: 开源工具
+    en: Open-source tool
+  status:
+    zh-CN: 维护中
+    en: Maintained
+  description:
+    zh-CN: 项目的一句话介绍，说明它解决什么问题。
+    en: A short description of the problem this project solves.
+  tags:
+    - TypeScript
+    - CLI
+  source: https://github.com/example/project
+  demo: /tools/example/
+```
+
+- `name` 为必填文本，其余字段可选，按填写内容显示。
+- `kind` 为项目类型，`status` 为状态或许可证说明，`description` 为项目简介。`source` 和 `demo` 分别为源码与在线体验链接，标题链接优先使用 `source`，其次为 `demo`。
+- `name`、`kind`、`status` 和 `description` 支持字符串或按语言取值的对象，文案按纯文本处理。`tags` 为数组，每项支持相同格式。各语言共用项目数据，文案依次取当前语言、站点默认语言、字段的首个语言值。
+- `source` 和 `demo` 支持站内路径、HTTP(S) 网址及以 `//` 开头的网址。外链在新标签页打开；站内路径遵循站点的 `root` 设置，语言前缀按需填写。
+- 默认展示已配置的项目。在关于页 Markdown 的 Front Matter 中设置 `show_projects: false` 可隐藏项目区。
+
 ## 搜索、订阅与提示框
 
 搜索浮层需要安装 `hexo-generator-searchdb`。主题侧只有开关与索引路径，索引路径要与生成器的输出一致：

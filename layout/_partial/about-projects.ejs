@@ -1,0 +1,95 @@
+<%
+const currentLang = page_lang(page);
+const projectsData = site.data && site.data.projects;
+
+function projectText(value) {
+  const text = localized_value(value, currentLang);
+  return typeof text === 'string' ? text.trim() : '';
+}
+
+function projectUrl(value) {
+  const href = typeof value === 'string' ? value.trim() : '';
+  if (!href || /[\u0000-\u001f\u007f\\]/.test(href)) return '';
+  if (is_external_url(href)) {
+    try {
+      const parsed = new URL(href.startsWith('//') ? 'https:' + href : href);
+      return parsed.hostname ? href : '';
+    } catch {
+      return '';
+    }
+  }
+  if (/^[a-z][a-z0-9+.-]*:/i.test(href)) return '';
+  return url_for(href);
+}
+
+function projectLinks(project) {
+  const links = [];
+  for (const key of ['source', 'demo']) {
+    const href = projectUrl(project[key]);
+    if (href) links.push({ key, href, external: is_external_url(href) });
+  }
+  return links;
+}
+
+const projects = (Array.isArray(projectsData) ? projectsData : [])
+  .filter(project => project && typeof project === 'object' && !Array.isArray(project))
+  .map(project => ({
+    name: projectText(project.name),
+    kind: projectText(project.kind),
+    status: projectText(project.status),
+    description: projectText(project.description),
+    tags: Array.isArray(project.tags) ? project.tags.map(projectText).filter(Boolean) : [],
+    links: projectLinks(project)
+  }))
+  .filter(project => project.name);
+%>
+
+<% if (projects.length > 0) { %>
+<section class="about-projects" aria-labelledby="about-projects-title">
+  <div class="section-heading">
+    <div>
+      <p class="section-kicker"><%= __('projects.kicker') %></p>
+      <h2 class="section-title" id="about-projects-title"><%= __('projects.title') %></h2>
+    </div>
+  </div>
+
+  <div class="about-project-grid">
+    <% projects.forEach(project => {
+      const titleLink = project.links[0];
+    %>
+    <article class="post-card project-card">
+      <% if (project.kind || project.status) { %>
+      <div class="card-topline">
+        <% if (project.kind) { %><span><%= project.kind %></span><% } %>
+        <% if (project.status) { %><span class="project-status"><%= project.status %></span><% } %>
+      </div>
+      <% } %>
+      <h3 class="post-title">
+        <% if (titleLink) { %>
+        <a href="<%= titleLink.href %>"<% if (titleLink.external) { %> target="_blank" rel="noopener noreferrer"<% } %>><%= project.name %></a>
+        <% } else { %>
+        <%= project.name %>
+        <% } %>
+      </h3>
+      <% if (project.description) { %>
+      <p class="post-excerpt"><%= project.description %></p>
+      <% } %>
+      <% if (project.tags.length > 0) { %>
+      <ul class="project-tags" aria-label="<%= __('projects.tags') %>">
+        <% project.tags.forEach(tag => { %><li><%= tag %></li><% }); %>
+      </ul>
+      <% } %>
+      <% if (project.links.length > 0) { %>
+      <div class="project-links">
+        <% project.links.forEach(link => { %>
+        <a href="<%= link.href %>"<% if (link.external) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+          <%= __('projects.' + link.key) %> <span aria-hidden="true"><%= link.external ? '↗' : '→' %></span>
+        </a>
+        <% }); %>
+      </div>
+      <% } %>
+    </article>
+    <% }); %>
+  </div>
+</section>
+<% } %>

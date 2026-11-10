@@ -16,6 +16,7 @@ pnpm install
 | `pnpm run watch` | Rebuild on source changes, unminified with inline source maps. |
 | `pnpm run typecheck` | Check browser TypeScript without emitting files. |
 | `pnpm run check` | Run type checking and build. |
+| `pnpm test` | Test initialization, preservation of existing files, conflict detection and site checks in isolated Hexo sites. |
 | `pnpm run check:package` | Verify the contents of the published package. |
 | `pnpm run sync-serif-sc` | Regenerate Chinese serif font subsets. |
 
@@ -35,6 +36,7 @@ A working copy has no compiled browser assets, since `source/js/` and the bundle
 | `lib/language.js` | Language resolution and localized paths. |
 | `lib/listings.js` | Language-filtered lists, pagination and their route table. |
 | `scripts/register-lists.js` | Generator registration and conflicting-route detection. |
+| `scripts/register-console.js`, `lib/setup/` | Site initialization and diagnostic commands. |
 | `scripts/helpers.js` | Template helpers, Atom feeds and asset fingerprints. |
 | `scripts/register-*.js` | Optional integration hooks. |
 | `tools/build.mjs` | Browser asset compilation and stale-output cleanup. |
@@ -62,10 +64,11 @@ Static font CSS and font files are tracked. To update the Chinese serif subsets,
 
 ```sh
 pnpm run check
+pnpm test
 pnpm run check:package
 ```
 
-The second command verifies the already built package. It confirms that `layout/`, `lib/`, `scripts/`, compiled CSS/JS, fonts and licenses are included, and that `_app/`, `docs/` and `tools/` stay out.
+`pnpm run check:package` verifies the already built package. It confirms that `layout/`, `lib/`, `scripts/`, compiled CSS/JS, fonts and licenses are included, and that `_app/`, `docs/` and `tools/` stay out.
 
 ## Commit messages
 

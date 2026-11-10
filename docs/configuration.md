@@ -23,6 +23,50 @@ latest_count: 8
 
 In the sections below, snippets of theme options list the defaults, so a site only writes the values it changes.
 
+## Site Initialization
+
+After installing and enabling ZhiMo, run the following command from the Hexo site root to create about, friends and 404 pages, along with their data and theme configuration files:
+
+```sh
+hexo zhimo init
+```
+
+To select components, supply one name or a comma-separated list:
+
+```sh
+hexo zhimo init friends
+hexo zhimo init about,friends
+```
+
+Pages and data files are created under `source_dir` (default: `source/`); theme configuration is created at the site root. Pages use all configured languages, with the first as the default. Each data file is shared across languages. In the paths below, `<lang>` is a non-default language code.
+
+| Component | Files |
+| --- | --- |
+| `about` | About pages and `_data/projects.yml`. |
+| `friends` | Friends pages and `_data/friends.yml`. |
+| `404` | `404.md` produces `404.html`; `<lang>/404/index.md` produces `<lang>/404/index.html`. |
+| `config` | A complete copy of the theme's `_config.yml` at the site root as `_config.zhimo.yml`, when neither `theme_config` nor a separate theme configuration file exists. |
+
+About and friends pages follow the local paths of the `menu.about` and `menu.friends` navigation entries. Their default source files are `about/index.md` and `friends/index.md`; other languages use the `<lang>/` prefix. When a navigation entry points to an external URL, initialization skips the corresponding local page.
+
+Existing pages, data and theme configuration are preserved. Site settings and navigation retain their current values. Path conflicts, duplicate data files and invalid formats stop initialization before it writes files. Correct the reported paths, page metadata or data, then retry.
+
+After initialization, customize the about-page content and project data as described in [About Page and Projects](#about-page-and-projects). Add links as described in [Friends Page](#friends-page).
+
+Add the `--dry-run` option to see which files will be created and which existing files will be preserved:
+
+```sh
+hexo zhimo init about,friends --dry-run
+```
+
+Check the site after filling in its content and configuration:
+
+```sh
+hexo zhimo doctor
+```
+
+`doctor` checks pages, data, theme configuration, renderers and optional integrations. It also reports missing theme assets, site icons and article templates.
+
 ## Navigation and Contact
 
 ```yaml

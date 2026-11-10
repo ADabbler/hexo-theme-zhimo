@@ -60,6 +60,14 @@ npm install hexo-theme-zhimo
 theme: zhimo
 ```
 
+在 Hexo 站点根目录运行以下命令，创建关于页、友链页、404 页面及相关数据和主题配置文件：
+
+```sh
+hexo zhimo init
+```
+
+已有文件按原内容保留。更多用法见[站点初始化](https://github.com/ADabbler/hexo-theme-zhimo/blob/main/docs/configuration.zh-CN.md#站点初始化)。
+
 ## 配置
 
 主题配置写进根 `_config.yml` 的 `theme_config`，或根目录的 `_config.zhimo.yml`。两者都写时以 `theme_config` 为准。

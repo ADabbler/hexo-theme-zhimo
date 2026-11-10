@@ -32,5 +32,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run check
+      - run: pnpm test
       - if: matrix.package
         run: pnpm run check:package

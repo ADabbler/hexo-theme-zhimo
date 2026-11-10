@@ -23,6 +23,50 @@ latest_count: 8
 
 下面各节的主题配置项片段是默认值，站点配置里只需写要改的部分。
 
+## 站点初始化
+
+安装并启用纸墨后，在 Hexo 站点根目录运行以下命令，创建关于页、友链页、404 页面及相关数据和主题配置文件：
+
+```sh
+hexo zhimo init
+```
+
+选择部分组件时，填写一个名称或用英文逗号分隔的列表：
+
+```sh
+hexo zhimo init friends
+hexo zhimo init about,friends
+```
+
+页面与数据文件位于 `source_dir`（默认 `source/`），主题配置文件位于站点根目录。页面按站点已配置的全部语言生成，首项为默认语言；各语言共用数据文件。下表中的 `<lang>` 为非默认语言代码。
+
+| 组件 | 文件 |
+| --- | --- |
+| `about` | 关于页与 `_data/projects.yml`。 |
+| `friends` | 友链页与 `_data/friends.yml`。 |
+| `404` | `404.md` 输出为 `404.html`，`<lang>/404/index.md` 输出为 `<lang>/404/index.html`。 |
+| `config` | 根 `theme_config` 和独立主题配置文件均缺失时，将主题的 `_config.yml` 完整复制为站点根目录的 `_config.zhimo.yml`。 |
+
+关于页与友链页沿用导航项 `menu.about`、`menu.friends` 的站内路径，默认源文件为 `about/index.md`、`friends/index.md`，其他语言加上 `<lang>/` 前缀。导航项指向外部网址时，初始化会跳过对应的本地页面。
+
+已有页面、数据和主题配置按原内容保留。站点配置和导航保留原值。路径冲突、重复数据文件和格式错误会使初始化在写入前停止；按报错修正路径、页面元信息或数据后重试。
+
+初始化后，按[关于页与项目展示](#关于页与项目展示)完善关于页正文和项目数据，按[友链页面](#友链页面)填写友链数据。
+
+添加 `--dry-run` 参数，查看将创建哪些文件以及保留哪些已有文件：
+
+```sh
+hexo zhimo init about,friends --dry-run
+```
+
+填写内容和配置后检查站点：
+
+```sh
+hexo zhimo doctor
+```
+
+`doctor` 检查页面、数据、主题配置、渲染器和可选集成，并提示缺失的主题资源、站点图标或文章模板。
+
 ## 导航与联系方式
 
 ```yaml

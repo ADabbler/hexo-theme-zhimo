@@ -60,6 +60,14 @@ Activate it in the root `_config.yml`:
 theme: zhimo
 ```
 
+Run the following command from the Hexo site root to create about, friends and 404 pages, along with their data and theme configuration files:
+
+```sh
+hexo zhimo init
+```
+
+Existing files are preserved. See [Site Initialization](https://github.com/ADabbler/hexo-theme-zhimo/blob/main/docs/configuration.md#site-initialization) for more usage examples.
+
 ## Configuration
 
 Theme settings go under `theme_config` in the root `_config.yml`, or in a `_config.zhimo.yml` file next to it. When both are set, `theme_config` wins.

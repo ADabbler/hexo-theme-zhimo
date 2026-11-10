@@ -16,6 +16,7 @@ pnpm install
 | `pnpm run watch` | 监听源码变化并重建，不压缩并内联 source map。 |
 | `pnpm run typecheck` | 检查浏览器 TypeScript，不生成文件。 |
 | `pnpm run check` | 依次执行类型检查和构建。 |
+| `pnpm test` | 在隔离 Hexo 站点中验证初始化、已有文件保留、冲突检测与站点检查。 |
 | `pnpm run check:package` | 校验发布包内容。 |
 | `pnpm run sync-serif-sc` | 重新生成中文衬线字体切片。 |
 
@@ -35,6 +36,7 @@ pnpm install
 | `lib/language.js` | 语言解析与多语言路径。 |
 | `lib/listings.js` | 按语言筛选的列表、分页与路由表。 |
 | `scripts/register-lists.js` | 注册生成器并检测路由冲突。 |
+| `scripts/register-console.js`、`lib/setup/` | 站点初始化与诊断命令。 |
 | `scripts/helpers.js` | 模板 helper、Atom feed 与资源指纹。 |
 | `scripts/register-*.js` | 可选集成的注册钩子。 |
 | `tools/build.mjs` | 编译浏览器资源并清理陈旧产物。 |
@@ -62,10 +64,11 @@ pnpm install
 
 ```sh
 pnpm run check
+pnpm test
 pnpm run check:package
 ```
 
-第二条命令校验已经构建好的发布内容，确认 `layout/`、`lib/`、`scripts/`、编译后的 CSS/JS、字体与许可证都在包里，`_app/`、`docs/`、`tools/` 没有进包。
+`pnpm run check:package` 校验已经构建好的发布内容，确认 `layout/`、`lib/`、`scripts/`、编译后的 CSS/JS、字体与许可证都在包里，`_app/`、`docs/`、`tools/` 没有进包。
 
 ## 提交信息
 

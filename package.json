@@ -51,7 +51,7 @@
     "prepare": "node tools/build.mjs"
   },
   "dependencies": {
-    "hexo-front-matter": "^4.2.1",
+    "hexo-front-matter": "^5.0.0",
     "hexo-pagination": "^4.0.0",
     "hexo-util": "^4.0.0"
   },

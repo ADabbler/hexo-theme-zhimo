@@ -12,8 +12,8 @@ importers:
         specifier: '>=7.0.0'
         version: 8.1.2(chokidar@3.6.0)
       hexo-front-matter:
-        specifier: ^4.2.1
-        version: 4.2.1
+        specifier: ^5.0.0
+        version: 5.0.0
       hexo-obsidian-callout:
         specifier: '>=0.1.0'
         version: 0.1.4(hexo@8.1.2(chokidar@3.6.0))
@@ -561,6 +561,10 @@ packages:
     resolution: {integrity: sha512-sJJI0GNmejYiwBvgnGRKn5V3sbODB4dNPr8jyw2Qp0PRHr4Uuyv8iyxw6WfK3+T7yvzYvJOh+tZ7jnwr2BYARA==}
     engines: {node: '>=14'}
 
+  hexo-front-matter@5.0.0:
+    resolution: {integrity: sha512-LPjSDyubGKblSJADJI7SOaMGqz98zBNvm639FlmQlqqTHjeg3yXYiw6dL+geIIOeYCR1JF4WLYDVLDCiT6HQIA==}
+    engines: {node: '>=20.19.0'}
+
   hexo-fs@4.1.3:
     resolution: {integrity: sha512-Q92zQ5PlVDouvSWFLXQoFSTLIUIODikUJs2BfAXQglyOEjN1dOQn1Z5Nimk/7GHof17R5h/uObCQLnZAjzI2tg==}
     engines: {node: '>=14'}
@@ -692,6 +696,10 @@ packages:
 
   lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
+
+  luxon@3.7.2:
+    resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
+    engines: {node: '>=12'}
 
   micro-memoize@4.2.0:
     resolution: {integrity: sha512-dRxIsNh0XosO9sd3aASUabKOzG9dloLO41g74XUGThpHBoGm1ttakPT5in14CuW/EDedkniaShFHbymmmKGOQA==}
@@ -901,6 +909,11 @@ packages:
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
+    hasBin: true
+
+  yaml@2.7.1:
+    resolution: {integrity: sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==}
+    engines: {node: '>= 14'}
     hasBin: true
 
 snapshots:
@@ -1313,6 +1326,11 @@ snapshots:
     dependencies:
       js-yaml: 4.3.2
 
+  hexo-front-matter@5.0.0:
+    dependencies:
+      luxon: 3.7.2
+      yaml: 2.7.1
+
   hexo-fs@4.1.3:
     dependencies:
       bluebird: 3.7.2
@@ -1476,6 +1494,8 @@ snapshots:
   lower-case@2.0.2:
     dependencies:
       tslib: 2.9.1
+
+  luxon@3.7.2: {}
 
   micro-memoize@4.2.0: {}
 
@@ -1694,3 +1714,5 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  yaml@2.7.1: {}

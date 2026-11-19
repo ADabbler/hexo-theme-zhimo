@@ -5,7 +5,7 @@
     <a href="https://www.npmjs.com/package/hexo-theme-zhimo"><img alt="npm 版本" src="https://img.shields.io/npm/v/hexo-theme-zhimo?style=flat-square&color=c43a10&logo=npm&logoColor=white"></a>
     <a href="LICENSE"><img alt="MIT 许可" src="https://img.shields.io/badge/license-MIT-c43a10?style=flat-square"></a>
     <img alt="Hexo 7 或更高版本" src="https://img.shields.io/badge/hexo-%E2%89%A57-0e83cd?style=flat-square&logo=hexo&logoColor=white">
-    <img alt="Node.js 18 或更高版本" src="https://img.shields.io/badge/node-%E2%89%A518-5fa04e?style=flat-square&logo=nodedotjs&logoColor=white">
+    <img alt="Node.js 20.19 或更高版本" src="https://img.shields.io/badge/node-%E2%89%A520.19-5fa04e?style=flat-square&logo=nodedotjs&logoColor=white">
   </p>
   <p><a href="README.md">English</a> | 简体中文</p>
   <img src="https://raw.githubusercontent.com/ADabbler/hexo-theme-zhimo/main/docs/images/home-paper.webp" alt="纸页模式的首页">
@@ -42,8 +42,8 @@
 
 ## 环境要求
 
-- Hexo 7 下需要 Node.js 18 或更高版本
-- Hexo 8 下需要 Node.js 20.19 或更高版本
+- Node.js 20.19 或更高版本
+- Hexo 7 或更高版本
 - `hexo-renderer-ejs`
 
 ## 安装

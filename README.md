@@ -5,7 +5,7 @@
     <a href="https://www.npmjs.com/package/hexo-theme-zhimo"><img alt="npm version" src="https://img.shields.io/npm/v/hexo-theme-zhimo?style=flat-square&color=c43a10&logo=npm&logoColor=white"></a>
     <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-c43a10?style=flat-square"></a>
     <img alt="Hexo 7 or later" src="https://img.shields.io/badge/hexo-%E2%89%A57-0e83cd?style=flat-square&logo=hexo&logoColor=white">
-    <img alt="Node.js 18 or later" src="https://img.shields.io/badge/node-%E2%89%A518-5fa04e?style=flat-square&logo=nodedotjs&logoColor=white">
+    <img alt="Node.js 20.19 or later" src="https://img.shields.io/badge/node-%E2%89%A520.19-5fa04e?style=flat-square&logo=nodedotjs&logoColor=white">
   </p>
   <p>English | <a href="README.zh-CN.md">简体中文</a></p>
   <img src="https://raw.githubusercontent.com/ADabbler/hexo-theme-zhimo/main/docs/images/home-paper.webp" alt="Home page in Paper mode">
@@ -42,8 +42,8 @@ The screenshots come from the [live demo](https://www.dabbler.top).
 
 ## Requirements
 
-- Hexo 7 with Node.js 18 or later
-- Hexo 8 with Node.js 20.19 or later
+- Node.js 20.19 or later
+- Hexo 7 or later
 - `hexo-renderer-ejs`
 
 ## Installation

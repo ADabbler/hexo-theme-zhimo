@@ -22,7 +22,7 @@
     "url": "https://github.com/ADabbler/hexo-theme-zhimo/issues"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19.0"
   },
   "packageManager": "pnpm@11.24.0",
   "publishConfig": {

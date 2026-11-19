@@ -4,7 +4,7 @@
 
 ## Development
 
-Building the theme needs Node.js 22.13 or later. Running it in a site needs Node.js 18 or later on Hexo 7, and Hexo 8 requires 20.19 or later. Install dependencies from the theme repository:
+Building the theme requires Node.js 22.13 or later. Running the built theme in a site requires Node.js 20.19 or later. Install dependencies from the theme repository root:
 
 ```sh
 pnpm install
